@@ -2,7 +2,7 @@
 
 namespace Has_Real_Estate.Models
 {
-    public class Home
+    public class Estate
     {
         public int Id { get; set; }
         [ForeignKey("User")]

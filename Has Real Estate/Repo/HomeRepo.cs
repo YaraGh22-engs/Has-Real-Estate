@@ -16,9 +16,9 @@ namespace Has_Real_Estate.Repo
             _imageService = imageService;
             _mapper = mapper;
         }
-        public IEnumerable<Home> GetHomes()
+        public IEnumerable<Estate> GetHomes()
         {
-            return _context.Homes.ToList();
+            return _context.Estates.ToList();
         }
         public IEnumerable<HomeImages> GetAllImages(int homeId)
         {
@@ -31,7 +31,7 @@ namespace Has_Real_Estate.Repo
         }
         public int Create(CreateHomeVM viewModel)
         {
-            var home = _mapper.Map<Home>(viewModel);
+            var home = _mapper.Map<Estate>(viewModel);
             home.UserId = _userService.GetUserId();
             MemoryStream stream = new MemoryStream();
             viewModel.FormCover.CopyTo(stream);
@@ -43,13 +43,13 @@ namespace Has_Real_Estate.Repo
                 homeImages.Add(image);
             }
             home.HomeImages = homeImages;
-            _context.Homes.Add(home);
+            _context.Estates.Add(home);
             return _context.SaveChanges();
         }
 
-        public Home GetById(int homeId)
+        public Estate GetById(int homeId)
         {
-            var home = _context.Homes?.Include(h => h.HomeImages)
+            var home = _context.Estates?.Include(h => h.HomeImages)
                 .Where(h => h.Id == homeId).AsNoTracking().SingleOrDefault();
             if (home == null)
             {
@@ -67,7 +67,7 @@ namespace Has_Real_Estate.Repo
             {
                 return 0;
             }
-            home = _mapper.Map<Home>(viewModel);
+            home = _mapper.Map<Estate>(viewModel);
             home.UserId = _userService.GetUserId();
             if (viewModel.FormCover != null)
             {
@@ -79,7 +79,7 @@ namespace Has_Real_Estate.Repo
             {
                 home.Cover = oldCover;
             }
-            _context.Homes.Update(home);
+            _context.Estates.Update(home);
             return _context.SaveChanges();
         }
 
@@ -101,7 +101,7 @@ namespace Has_Real_Estate.Repo
                     homeImages.Add(image);
                 }
                 existingHome.HomeImages = homeImages;
-                _context.Homes.Update(existingHome);
+                _context.Estates.Update(existingHome);
                 return _context.SaveChanges();
             }
             return 0;

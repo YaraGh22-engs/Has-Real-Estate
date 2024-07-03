@@ -22,7 +22,7 @@ namespace Has_Real_Estate.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Has_Real_Estate.Models.Home", b =>
+            modelBuilder.Entity("Has_Real_Estate.Models.Estate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +109,7 @@ namespace Has_Real_Estate.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Homes");
+                    b.ToTable("Estates");
                 });
 
             modelBuilder.Entity("Has_Real_Estate.Models.HomeImages", b =>
@@ -120,7 +120,7 @@ namespace Has_Real_Estate.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("HomeId")
+                    b.Property<int>("EstateId")
                         .HasColumnType("int");
 
                     b.Property<string>("Path")
@@ -129,7 +129,7 @@ namespace Has_Real_Estate.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HomeId");
+                    b.HasIndex("EstateId");
 
                     b.ToTable("HomeImages");
                 });
@@ -338,13 +338,13 @@ namespace Has_Real_Estate.Data.Migrations
 
             modelBuilder.Entity("Has_Real_Estate.Models.HomeImages", b =>
                 {
-                    b.HasOne("Has_Real_Estate.Models.Home", "Home")
+                    b.HasOne("Has_Real_Estate.Models.Estate", "Estate")
                         .WithMany("HomeImages")
-                        .HasForeignKey("HomeId")
+                        .HasForeignKey("EstateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Home");
+                    b.Navigation("Estate");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -398,7 +398,7 @@ namespace Has_Real_Estate.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Has_Real_Estate.Models.Home", b =>
+            modelBuilder.Entity("Has_Real_Estate.Models.Estate", b =>
                 {
                     b.Navigation("HomeImages");
                 });

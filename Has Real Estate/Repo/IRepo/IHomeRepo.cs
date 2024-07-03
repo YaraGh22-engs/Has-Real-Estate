@@ -4,9 +4,9 @@ namespace Has_Real_Estate.Repo.IRepo
 {
     public interface IHomeRepo
     {
-        IEnumerable<Home> GetHomes();
+        IEnumerable<Estate> GetHomes();
         IEnumerable<HomeImages> GetAllImages(int homeId);
-        Home GetById(int homeId);
+        Estate GetById(int homeId);
         int Create(CreateHomeVM viewModel);
         int Update(UpdateHomeVM viewModel);
         int UpdateHomeImages(UpdateHomeImagesVM viewModel);

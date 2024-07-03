@@ -7,7 +7,7 @@ namespace Has_Real_Estate.Models
         public int Id { get; set; }
         public string Path { get; set; }
         [ForeignKey("Home")]
-        public int HomeId { get; set; }
-        public Home? Home { get; set; }
+        public int EstateId { get; set; }
+        public Estate? Estate { get; set; }
     }
 }

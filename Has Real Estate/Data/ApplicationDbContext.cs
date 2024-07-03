@@ -10,7 +10,7 @@ namespace Has_Real_Estate.Data
             : base(options)
         {
         }
-        public DbSet<Home> Homes { get; set; }
+        public DbSet<Estate> Estates { get; set; }
         public DbSet<HomeImages> HomeImages { get; set; }
     }
 }

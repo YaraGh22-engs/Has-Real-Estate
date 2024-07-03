@@ -6,14 +6,14 @@ namespace Has_Real_Estate.Services
     {
         public MappingProfile()
         {
-            CreateMap<CreateHomeVM, Home>()
+            CreateMap<CreateHomeVM, Estate>()
                 .ForMember(src => src.Cover, opt => opt.Ignore())
                 .ForMember(src => src.UserId, opt => opt.Ignore());
 
-            CreateMap<UpdateHomeVM, Home>()
+            CreateMap<UpdateHomeVM, Estate>()
                 .ForMember(src => src.Cover, opt => opt.Ignore())
                 .ForMember(src => src.UserId, opt => opt.Ignore());
-            CreateMap<Home, UpdateHomeVM>()
+            CreateMap<Estate, UpdateHomeVM>()
                 .ForMember(dest => dest.Cover, opt => opt.MapFrom(src => src.Cover));
         }
     }
