@@ -1,6 +1,6 @@
 ﻿namespace Has_Real_Estate.ViewModel
 {
-    public class UpdateHomeVM:BaseHomeVM
+    public class UpdateEstateVM : BaseEstateVM
     {
         public int Id { get; set; }
         public IFormFile? FormCover { get; set; } // for upload

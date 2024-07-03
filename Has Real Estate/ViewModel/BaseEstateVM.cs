@@ -1,13 +1,11 @@
-﻿
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
-namespace Has_Real_Estate.Models
+namespace Has_Real_Estate.ViewModel
 {
-    public class Estate
+    public class BaseEstateVM
     {
-        public int Id { get; set; }
-        [ForeignKey("User")]
-        public string UserId { get; set; }
-        public string Governorate { get; set; } 
+        public string Governorate { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
         public double longitude { get; set; }
@@ -39,14 +37,14 @@ namespace Has_Real_Estate.Models
         public int NFoodRoom { get; set; }
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a positive number")]
         public int NDepot { get; set; }
-        public byte[] Cover { get; set; }
         public string? ExtraFeatures { get; set; }
         public bool IsApproved { get; set; } = false;
         public bool ForRent { get; set; } = false;
         public bool ForSale { get; set; } = false;
-
-        //navigation
-        public ICollection<HomeImages>? HomeImages { get; set; }
+        public Category Category { get; set; }
+        public MethodPay MethodPay { get; set; }
+        public IEnumerable<SelectListItem> SelectCategory { get; set; } = Enumerable.Empty<SelectListItem>();
+        public IEnumerable<SelectListItem> SelectMethodPay { get; set; } = Enumerable.Empty<SelectListItem>();
 
     }
 }

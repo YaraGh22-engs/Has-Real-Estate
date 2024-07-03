@@ -8,10 +8,10 @@ namespace Has_Real_Estate.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IHomeRepo _homeRepo;
+        private readonly IEstateRepo _homeRepo;
         private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, IHomeRepo homeRepo, IMapper mapper)
+        public HomeController(ILogger<HomeController> logger, IEstateRepo homeRepo, IMapper mapper)
         {
             _logger = logger;
             _homeRepo = homeRepo;

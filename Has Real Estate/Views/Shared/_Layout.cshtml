@@ -49,24 +49,18 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto">
-                        <a asp-controller="Home" asp-action="Index" class="nav-item nav-link active">Home</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Property</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a asp-action="PropertyGetAll" asp-controller="Property" class="dropdown-item">Property List</a>
-                                <a asp-action="PropertyTypeGetAll" asp-controller="Property" class="dropdown-item">Property Type</a>
-                            </div>
-                        </div>
-
+                        <a asp-controller="Home" asp-action="Index" class="nav-item nav-link active">Home</a> 
+                        <a asp-action="ForSaleHome" asp-controller="Estate" class="nav-item nav-link">Buy</a>
+                        <a asp-action="ForRentHome" asp-controller="Estate" class="nav-item nav-link">Rent</a> 
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Choise</a>
                             <div class="dropdown-menu rounded-0 m-0">
-                                <a asp-action="SaleList" asp-controller="Property" class="dropdown-item">Sell</a>
-                                <a asp-action="RentList" asp-controller="Property" class="dropdown-item">Rent</a>
+                                <a asp-action="Create" asp-controller="Estate" class="dropdown-item">Sell Your Property</a>
+                                <a asp-action="Create" asp-controller="Estate" class="dropdown-item">Rent Your Property</a>
+                                <a asp-action="Index" asp-controller="Estate" class="dropdown-item">Manage Your Properties</a>
                             </div>
                         </div>
 
-                        <a asp-action="ContactUs" asp-controller="Home" class="nav-item nav-link">Contact</a>
                          
                     </div>
                      
@@ -76,7 +70,7 @@
         </div>
         <!-- Navbar End -->
     </header>
-    <div class="container">
+    <div >
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

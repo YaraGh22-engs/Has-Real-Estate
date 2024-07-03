@@ -15,12 +15,19 @@ namespace Has_Real_Estate.Services
             return Path.Combine($"{_webHostEnvironment.WebRootPath}{Settings.imagesPath}", image);
         }
 
+        public byte[] SaveImageInDatabase(IFormFile file)
+        {
+            MemoryStream stream = new MemoryStream();
+            file.CopyTo(stream);
+            return stream.ToArray();
+        }
+
         public string SaveImgInServer(IFormFile file)
         {
             var fileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}";
             var path = Path.Combine($"{_webHostEnvironment.WebRootPath}{Settings.imagesPath}", fileName);
             using var stream = File.Create(path);
-            file.CopyToAsync(stream);
+            file.CopyTo(stream);
             return fileName;
         }
     }

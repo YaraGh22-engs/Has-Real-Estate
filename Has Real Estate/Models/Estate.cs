@@ -1,10 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
 
-namespace Has_Real_Estate.ViewModel
+namespace Has_Real_Estate.Models
 {
-    public class BaseHomeVM
+    public class Estate
     {
-        public string Governorate { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+        public string Governorate { get; set; } 
         public string City { get; set; }
         public string Street { get; set; }
         public double longitude { get; set; }
@@ -36,9 +40,29 @@ namespace Has_Real_Estate.ViewModel
         public int NFoodRoom { get; set; }
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a positive number")]
         public int NDepot { get; set; }
+        public byte[] Cover { get; set; }
         public string? ExtraFeatures { get; set; }
         public bool IsApproved { get; set; } = false;
         public bool ForRent { get; set; } = false;
         public bool ForSale { get; set; } = false;
+
+        //navigation
+        public ICollection<EstateImages>? EstateImages { get; set; }
+
+
+    }
+    public enum Category
+    {
+        appartement,
+        house,
+        villa,
+        farm,
+        office
+    }
+    public enum MethodPay
+    {
+        VisaCard,
+        MasterCard,
+        PayPal
     }
 }
