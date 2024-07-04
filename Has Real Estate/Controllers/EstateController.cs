@@ -67,6 +67,8 @@ namespace Has_Real_Estate.Controllers
             var viewModel = _mapper.Map<UpdateEstateVM>(estate);
             viewModel.SelectCategory = GetEnumSelectList<Category>();
             viewModel.SelectMethodPay = GetEnumSelectList<MethodPay>();
+            viewModel.SelectMethodPay = GetEnumSelectList<LegalType>();
+            viewModel.SelectMethodPay = GetEnumSelectList<CompleteBuildingState>();
             return View(viewModel);
         }
 
@@ -77,6 +79,8 @@ namespace Has_Real_Estate.Controllers
             {
                 viewModel.SelectCategory = GetEnumSelectList<Category>();
                 viewModel.SelectMethodPay = GetEnumSelectList<MethodPay>();
+                viewModel.SelectMethodPay = GetEnumSelectList<LegalType>();
+                viewModel.SelectMethodPay = GetEnumSelectList<CompleteBuildingState>();
                 return View(viewModel);
             }
             var isUpdated = _estateRepo.Update(viewModel);

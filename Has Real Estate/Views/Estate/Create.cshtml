@@ -230,16 +230,17 @@
                 <div class="col-md-12" id="myMap" style='position:relative;height:400px;' onload="GetMap();"></div>
                 <div id="typlatcord" hidden> </div>
                 <div id="typlongcord" hidden> </div>
-              
+                   @*  <input id="lat" name="latcord" />
+                    <input id="long" name="longcord" /> *@
                     <div class="row">
                         <div class="form-group col-md-6 col-lg-3 mb-2">
                             <label asp-for="longitude">  </label>
-                            <input id="lat" name="latcord" asp-for="longitude" class="form-control " style="margin-right:1rem;" />
+                            <input id="lat"   asp-for="longitude" class="form-control " style="margin-right:1rem;" />
                             <span asp-validation-for="longitude" class="text text-danger"> </span>
                         </div>
                         <div class="form-group col-md-6 col-lg-3  mb-2">
                             <label asp-for="latitude"></label>
-                            <input id="long" name="longcord" asp-for="latitude" class="form-control" />
+                            <input id="long"  asp-for="latitude" class="form-control" />
                             <span asp-validation-for="latitude" class="text text-danger"> </span>
                         </div>
                     </div>
@@ -261,7 +262,7 @@
         // the zoom level to 10, and the map center over London, UK (51.50632, -0.12714).
         var map = new Microsoft.Maps.Map('#myMap', {
             credentials: 'ArTYnXAo5ajG1e4ZyFIV-LT3sW_IU0Uy2YETN7N-u5EdkJOaOwaft6BOA1SPlVfA',
-            center: new Microsoft.Maps.Location(51.50632, -0.12714),
+            center: new Microsoft.Maps.Location(35.340192118895025, 35.93475407561252),
             mapTypeId: Microsoft.Maps.MapTypeId.aerial,
             zoom: 10
         });
@@ -271,26 +272,18 @@
         // are the primary method in the Bing Maps V8 Map Control to add a graphical image and text at a location within the map.
         //Create custom Pushpin
         // هنا يمكننا وضع الاحداثيات بدل سينتر لتثبيت ماركر
-        var myloc = map.getCenter();
+
+        var myloc = new Microsoft.Maps.Location(35.340192118895025, 35.93475407561252);
         var pin = new Microsoft.Maps.Pushpin(myloc, {
             color: 'red',
-            title: 'Microsoft',
+            title: 'Jableh',
             subTitle: 'City Center',
-            text: '1'
+
         });
         //Add the pushpin to the map
         map.entities.push(pin);
 
-        /////////////////////////هذه النافذة التي تظهر على الموقع وهو يشبه صندوق وصف
-        //Create an infobox that will render in the center of the map.
-        var myloc = new Microsoft.Maps.Location(51.60632, -0.12914);
-        var infobox = new Microsoft.Maps.Infobox(myloc, {
-            title: 'Map Center',
-            description: 'Seattle'
-        });
-
-        //Assign the infobox to a map instance.
-        infobox.setMap(map);
+         
 
         ///////////////// التقاط احداثيات عند النقر
         Microsoft.Maps.Events.addHandler(map, 'click', function (e) {
