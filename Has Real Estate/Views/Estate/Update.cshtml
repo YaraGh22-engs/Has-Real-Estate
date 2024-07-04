@@ -190,26 +190,25 @@
             <!--End Your Connection Data -->
             <!--Images -->
             <div class="form-row row mt-4 mb-3">
-                <div class="col-md-6">
-                    <div class="  col-md-12" style="  margin-bottom:3rem;margin-top:3rem">
-                        <h4>   Images For Your Property</h4>
-                    </div>
-
-                    <div class="form-group ">
+                <div class="  col-md-12" style="  margin-bottom:3rem;margin-top:3rem">
+                    <h4>   Images For Your Property</h4>
+                </div>
+                <div class="col-md-6"> 
+                    <div class="form-group mb-3 ">
                         <label asp-for="FormCover"> Add Main Cover</label>
                         <input asp-for="FormCover" type="file" class="form-control-file" />
                         <span asp-validation-for="FormCover" class="text text-danger"> </span>
                     </div>
-                     
+                   @*  <div class="mt-4 mb-3">
+                        <p style="display:inline">If You Want To Manage Other Estate Images</p>
+                        <a asp-action="UpdateEstateImages" asp-route-estateId="@Model.Id" class="btn btn-primary">Click Here</a>
+                    </div> *@
                 </div>
 
                 <div class="col-sm-12 col-md-6 d-flex justify-content-center pt-4 overflow-hidden">
                     <img class="cover-preview m-auto " src="data:image/*;base64,@(Convert.ToBase64String(Model.Cover))" alt="Cover" style="width: inherit" />                  
                 </div>
-                <div class="mb-3">
-                    <h5 style="display:inline">Manage Other Estate Images</h5>
-                    <a asp-action="UpdateEstateImages" asp-route-estateId="@Model.Id" class="btn btn-primary">Click Here</a>
-                </div>
+               
             </div>
             <!--End Images -->
             <!--Map -->
@@ -280,22 +279,14 @@
          
         ///////////////Converting the C# Model to JS model
         // convsert the data base table to Array in json type
-        var homes = @Html.Raw(Json.Serialize(Model))
-            //  تصبح المصفوفة بالشكل التالي
-            // var homes = [
-            //     { name: 'منزل 1', latitude: 47.6062, longitude: -122.3321 },
-            //     { name: 'منزل 2', latitude: 48.6097, longitude: -127.3331 }
-
-            // ];
-            homes.forEach(function (h) {
-                var location = new Microsoft.Maps.Location(h.latitude, h.longitude);
-                var pin = new Microsoft.Maps.Pushpin(location, {
-                    color: 'blue',
-                    title: 'My Home',
-                });
-                map.entities.push(pin);
-            });
-
+        var myHome = @Html.Raw(Json.Serialize(Model));
+        var location = new Microsoft.Maps.Location(myHome.latitude, myHome.longitude);
+        var pin = new Microsoft.Maps.Pushpin(location, {
+            color: 'blue',
+            title: 'My Home',
+        });
+        map.entities.push(pin);
+            
         ///////////////// التقاط احداثيات عند النقر
         Microsoft.Maps.Events.addHandler(map, 'click', function (e) {
             map.entities.clear(); // for delete past pushpin

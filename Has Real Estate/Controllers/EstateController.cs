@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Has_Real_Estate.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -67,8 +68,8 @@ namespace Has_Real_Estate.Controllers
             var viewModel = _mapper.Map<UpdateEstateVM>(estate);
             viewModel.SelectCategory = GetEnumSelectList<Category>();
             viewModel.SelectMethodPay = GetEnumSelectList<MethodPay>();
-            viewModel.SelectMethodPay = GetEnumSelectList<LegalType>();
-            viewModel.SelectMethodPay = GetEnumSelectList<CompleteBuildingState>();
+            viewModel.SelectLegalType = GetEnumSelectList<LegalType>();
+            viewModel.SelectCompleteBuildingState = GetEnumSelectList<CompleteBuildingState>();
             return View(viewModel);
         }
 
@@ -79,8 +80,8 @@ namespace Has_Real_Estate.Controllers
             {
                 viewModel.SelectCategory = GetEnumSelectList<Category>();
                 viewModel.SelectMethodPay = GetEnumSelectList<MethodPay>();
-                viewModel.SelectMethodPay = GetEnumSelectList<LegalType>();
-                viewModel.SelectMethodPay = GetEnumSelectList<CompleteBuildingState>();
+                viewModel.SelectLegalType = GetEnumSelectList<LegalType>();
+                viewModel.SelectCompleteBuildingState = GetEnumSelectList<CompleteBuildingState>();
                 return View(viewModel);
             }
             var isUpdated = _estateRepo.Update(viewModel);
@@ -128,6 +129,13 @@ namespace Has_Real_Estate.Controllers
                 return RedirectToAction("UpdateEstateImages", "Estate", new { estateId = estateId });
             }
             return BadRequest();
+        }
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            var isDeleted = _estateRepo.Delete(id);
+
+            return isDeleted ? Ok() : BadRequest();
         }
     }
 }

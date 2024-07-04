@@ -7,8 +7,10 @@
     <title>@ViewData["Title"] - EstateWebsite</title>
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon"> 
-    
+    <link rel="icon" href="img/favicon.ico">
+    <!--Other-->
+    <link rel="stylesheet"  href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/lib/sweetalert2/sweetalert2.min.css" />
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -173,10 +175,11 @@
     <script src="~/theme/lib/waypoints/waypoints.min.js"></script>
     <script src="~/theme/lib/owlcarousel/owl.carousel.min.js"></script>
 
-    <!-- Template Javascript -->
+    <!--  Javascript -->
     <script src="~/theme/js/main.js"></script> 
     <script src="~/js/site.js" asp-append-version="true"></script>
-
+    <!--Others-->
+    <script src="~/lib/sweetalert2/sweetalert2.min.js"></script>
      
     @await RenderSectionAsync("Scripts", required: false)
 </body>

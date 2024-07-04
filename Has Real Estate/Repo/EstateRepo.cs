@@ -110,7 +110,33 @@ namespace Has_Real_Estate.Repo
             else
                 return -1;
         }
+        public bool Delete(int id)
+        {
 
+            var isDeleted = false;
+
+            var est = _context.Estates.Include(x => x.EstateImages).FirstOrDefault(x => x.Id==id);
+               
+            if (est is null)
+                return isDeleted;
+
+            _context.Remove(est);
+            isDeleted = true;
+            var effectedRows = _context.SaveChanges();
+            
+            //if (effectedRows > 0)
+            //{
+            //    isDeleted = true;
+            //    foreach (var img in est.EstateImages)
+            //    {
+            //        var cover = Path.Combine(Settings.imagesPath, img.Path);
+            //        File.Delete(cover);
+            //    }
+
+            //}
+
+            return isDeleted;
+        }
         public List<EstateImages> StoreImagesNames(List<IFormFile> formFiles)
         {
             if (formFiles != null)
@@ -125,5 +151,7 @@ namespace Has_Real_Estate.Repo
             }
             return null;
         }
+
+
     }
 }
