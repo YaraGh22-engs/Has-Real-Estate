@@ -5,6 +5,9 @@ namespace Has_Real_Estate.ViewModel
 {
     public class BaseEstateVM
     {
+        public string Name { get; set; } = string.Empty;
+        public string OwnerName { get; set; } = string.Empty;
+        public int OwnerPhone { get; set; } 
         public string Governorate { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
@@ -15,9 +18,9 @@ namespace Has_Real_Estate.ViewModel
         public double Area { get; set; }
         [Range(1, double.MaxValue, ErrorMessage = "Please enter a positive number")]
         public double Price { get; set; }
-        [Range(0, int.MaxValue, ErrorMessage = "Please enter a positive number")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a positive number")]
         public int NFloor { get; set; }
-        [Range(0, int.MaxValue, ErrorMessage = "Please enter a positive number")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a positive number")]
         public int NRoom { get; set; }
         [Range(0, int.MaxValue, ErrorMessage = "Please enter a positive number")]
         public int NBedroom { get; set; }
@@ -43,8 +46,12 @@ namespace Has_Real_Estate.ViewModel
         public bool ForSale { get; set; } = false;
         public Category Category { get; set; }
         public MethodPay MethodPay { get; set; }
+        public LegalType LegalType { get; set; }
+        public CompleteBuildingState CompleteBuildingState { get; set; }
         public IEnumerable<SelectListItem> SelectCategory { get; set; } = Enumerable.Empty<SelectListItem>();
         public IEnumerable<SelectListItem> SelectMethodPay { get; set; } = Enumerable.Empty<SelectListItem>();
+        public IEnumerable<SelectListItem> SelectLegalType { get; set; } = Enumerable.Empty<SelectListItem>();
+        public IEnumerable<SelectListItem> SelectCompleteBuildingState { get; set; } = Enumerable.Empty<SelectListItem>();
 
     }
 }

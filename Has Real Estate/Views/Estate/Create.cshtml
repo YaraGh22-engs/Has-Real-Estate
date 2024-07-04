@@ -4,7 +4,7 @@
     ViewData["Ttile"] = "Create a Home";
 }
 <div class="container">
-
+    <h1 style="text-align: center;"> Add Your Property To Our Market DataBase </h1>
     <form asp-action="Create" asp-controller="Estate" method="post" enctype="multipart/form-data">
 
         <!-- Location -->
@@ -29,84 +29,124 @@
             </div>
         </div>
         <!--End Location -->
-        <!--Price and Area -->
+        <!--General Information -->
         <div class="form-row row">
-            <div class="  col-md-12" style="font-size: larger; margin-bottom:1rem;margin-top:1rem">
+            <div class="  col-md-12" style="  margin-bottom:1rem;margin-top:1rem">
                 <h2>General Information</h2>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6 mb-2">
+                <label asp-for="Category" class="form-label mt-4"></label>
+                <select asp-for="Category" class="form-select" asp-items="@Model.SelectCategory" data-placeholder="Select a Category" >
+                     
+                </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 mb-2">
+                <label asp-for="MethodPay" class="form-label mt-4">Select Method Pay</label>
+                <select asp-for="MethodPay" class="form-select" asp-items="@Model.SelectMethodPay">
+                </select>
+                <span asp-validation-for="MethodPay" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 mb-2">
+                <label asp-for="LegalType" class="form-label mt-4"></label>
+                <select asp-for="LegalType" class="form-select" asp-items="@Model.SelectLegalType" data-placeholder="Select a Category">
+                     
+                </select>
+                <span asp-validation-for="LegalType" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6 mb-2">
+                <label asp-for="CompleteBuildingState" class="form-label mt-4">Select Method Pay</label>
+                <select asp-for="CompleteBuildingState" class="form-select" asp-items="@Model.SelectCompleteBuildingState">
+                </select>
+                <span asp-validation-for="CompleteBuildingState" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4 mb-2">
                 <label asp-for="Area"></label>
                 <input asp-for="Area" type="number" class="form-control" placeholder=" " /> <span>Square Meters </span>
                 <span asp-validation-for="Area" class="text text-danger"> </span>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4 mb-2">
                 <label asp-for="Price"></label>
                 <input asp-for="Price" type="number" class="form-control" placeholder=" " /> <span>Dollars</span>
                 <span asp-validation-for="Price" type="number" class="text text-danger"> </span>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-4 mb-2">
                 <label asp-for="NFloor">Number of Floor</label>
                 <input asp-for="NFloor" class="form-control" />
                 <span asp-validation-for="NFloor" class="text text-danger"> </span>
             </div>
-        </div>
-        <!--End Price and Area -->
+             
+            <div class="form-group col-md-6 mb-2">
+                <label asp-for="Name">Select Specific Name For Your Property</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text text-danger"> </span>
+            </div>
+        
+        <!--End General Information -->
         <!--Specific Information -->
         <div class="form-row row">
             <div class="  col-md-12" style="font-size: larger; margin-bottom:1rem;margin-top:1rem">
                 <h2>Specific Information</h2>
             </div>
-            <div class="form-group col-md-3 ">
-                <label asp-for="NRoom">Number of Rooms</label>
-                <input asp-for="NRoom" class="form-control" />
-                <span asp-validation-for="NRoom" class="text text-danger"> </span>
+            <div class="row">
+                <div class="form-group col-md-6 col-lg-3  mb-2">
+                    <label asp-for="NRoom">Number of Rooms</label>
+                    <input asp-for="NRoom" class="form-control" />
+                    <span asp-validation-for="NRoom" class="text text-danger"> </span>
+                </div>
+                <div class="form-group col-md-6 col-lg-3  mb-2">
+                    <label asp-for="NBedroom">Number of BedRooms</label>
+                    <input asp-for="NBedroom" class="form-control" />
+                    <span asp-validation-for="NBedroom" class="text text-danger"> </span>
+                </div>
+                <div class="form-group col-md-6 col-lg-3  mb-2">
+                    <label asp-for="NBath">Number of Baths</label>
+                    <input asp-for="NBath" class="form-control" />
+                    <span asp-validation-for="NBath" class="text text-danger"> </span>
+                </div>
+                <div class="form-group col-md-6 col-lg-3  mb-2">
+                    <label asp-for="NLivingRoom">Number of Living Room</label>
+                    <input asp-for="NLivingRoom" class="form-control" />
+                    <span asp-validation-for="NLivingRoom" class="text text-danger"> </span>
+                </div>
             </div>
-            <div class="form-group col-md-3">
-                <label asp-for="NBedroom">Number of BedRooms</label>
-                <input asp-for="NBedroom" class="form-control" />
-                <span asp-validation-for="NBedroom" class="text text-danger"> </span>
+            <div class="row">
+                <div class="form-group col-md-6 col-lg-3  mb-2">
+                    <label asp-for="NReceptionRoom">Number of Reception Room</label>
+                    <input asp-for="NReceptionRoom" class="form-control" />
+                    <span asp-validation-for="NReceptionRoom" class="text text-danger"> </span>
+                </div>
+                <div class="form-group col-md-6 col-lg-3  mb-2">
+                    <label asp-for="NBalcone">Number of Balcones</label>
+                    <input asp-for="NBalcone" class="form-control" />
+                    <span asp-validation-for="NBalcone" class="text text-danger"> </span>
+                </div>
+                <div class="form-group col-md-6 col-lg-3  mb-2">
+                    <label asp-for="NGarage">Number of Garages</label>
+                    <input asp-for="NGarage" class="form-control" />
+                    <span asp-validation-for="NGarage" class="text text-danger"> </span>
+                </div>
+                <div class="form-group col-md-6 col-lg-3  mb-2">
+                    <label asp-for="NKitchen">Number of Kitchens </label>
+                    <input asp-for="NKitchen" class="form-control" />
+                    <span asp-validation-for="NKitchen" class="text text-danger"> </span>
+                </div>
             </div>
-            <div class="form-group col-md-3">
-                <label asp-for="NBath">Number of Baths</label>
-                <input asp-for="NBath" class="form-control" />
-                <span asp-validation-for="NBath" class="text text-danger"> </span>
+            <div class="row">
+                <div class="form-group col-md-6 col-lg-3 mb-2">
+                    <label asp-for="NFoodRoom">Number of Food Room </label>
+                    <input asp-for="NFoodRoom" class="form-control" />
+                    <span asp-validation-for="NFoodRoom" class="text text-danger"> </span>
+                </div>
+                <div class="form-group col-md-6 col-lg-3  mb-2">
+                    <label asp-for="NDepot">Number of Depot</label>
+                    <input asp-for="NDepot" class="form-control" />
+                    <span asp-validation-for="NDepot" class="text text-danger"> </span>
+                </div>
             </div>
-            <div class="form-group col-md-3">
-                <label asp-for="NLivingRoom">Number of Living Room</label>
-                <input asp-for="NLivingRoom" class="form-control" />
-                <span asp-validation-for="NLivingRoom" class="text text-danger"> </span>
-            </div>
-            <div class="form-group col-md-3">
-                <label asp-for="NReceptionRoom">Number of Reception Room</label>
-                <input asp-for="NReceptionRoom" class="form-control" />
-                <span asp-validation-for="NReceptionRoom" class="text text-danger"> </span>
-            </div>
-            <div class="form-group col-md-3">
-                <label asp-for="NBalcone">Number of Balcones</label>
-                <input asp-for="NBalcone" class="form-control" />
-                <span asp-validation-for="NBalcone" class="text text-danger"> </span>
-            </div>
-            <div class="form-group col-md-3 ">
-                <label asp-for="NGarage">Number of Garages</label>
-                <input asp-for="NGarage" class="form-control" />
-                <span asp-validation-for="NGarage" class="text text-danger"> </span>
-            </div>
-            <div class="form-group col-md-3">
-                <label asp-for="NKitchen">Number of Kitchens </label>
-                <input asp-for="NKitchen" class="form-control" />
-                <span asp-validation-for="NKitchen" class="text text-danger"> </span>
-            </div>
-            <div class="form-group col-md-3">
-                <label asp-for="NFoodRoom">Number of Food Room </label>
-                <input asp-for="NFoodRoom" class="form-control" />
-                <span asp-validation-for="NFoodRoom" class="text text-danger"> </span>
-            </div>
-            <div class="form-group col-md-3">
-                <label asp-for="NDepot">Number of Depot</label>
-                <input asp-for="NDepot" class="form-control" />
-                <span asp-validation-for="NDepot" class="text text-danger"> </span>
-            </div>
-            <div class="form-group">
+           
+            
+            <div class="form-group mb-2">
                 <label asp-for="ExtraFeatures"></label>
                 <textarea asp-for="ExtraFeatures" class="form-control"></textarea>
                 <span asp-validation-for="ExtraFeatures" class="text text-danger"> </span>
@@ -114,58 +154,101 @@
         </div>
         <!--End Specific Information -->
         <!--Available -->
-        <div class="mt-2">
-            <h4>Your Property Is Available   </h4>
-        </div>
         <div>
-            <div class="form-group">
-                <label asp-for="ForRent"> For Rent</label>
-                <input asp-for="ForRent" type="checkbox" />
-                <span asp-validation-for="ForRent" class="text text-danger"> </span>
+            <div class="mt-2">
+                <h4>Your Property Is Available   </h4>
             </div>
-            <div class="form-group">
-                <label asp-for="ForSale">  For Sale</label>
-                <input asp-for="ForSale" type="checkbox" />
-                <span asp-validation-for="ForSale" class="text text-danger"> </span>
+            <div>
+                <div class="form-group">
+                    <label asp-for="ForRent"> For Rent</label>
+                    <input asp-for="ForRent" type="checkbox" />
+                    <span asp-validation-for="ForRent" class="text text-danger"> </span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ForSale">  For Sale</label>
+                    <input asp-for="ForSale" type="checkbox" />
+                    <span asp-validation-for="ForSale" class="text text-danger"> </span>
+                </div>
             </div>
         </div>
+        
+        <!--Your Connection Data -->
+        <div class="form-row row mt-4">
+            <div class="  col-md-12" style="  margin-bottom:1rem;margin-top:1rem">
+                <h4>Add Some Data To Connection   </h4>
+            </div> 
+            <div class="row">
+                <div class="form-group col-md-4 col-lg-6   mb-2">
+                    <label asp-for="OwnerName"> Owner Name</label>
+                    <input asp-for="OwnerName" />
+                    <span asp-validation-for="OwnerName" class="text text-danger"> </span>
+                </div>
+                <div class="form-group col-md-6   mb-2">
+                    <label asp-for="OwnerPhone"> Owner Phone Number</label>
+                    <input asp-for="OwnerPhone" />
+                    <span asp-validation-for="OwnerPhone" class="text text-danger"> </span>
+                </div>
+            </div>
+        </div> 
+        <!--End Your Connection Data -->
 
-        <!--End Available -->
         <!--Images -->
-        <div class="mt-1">
-            <h4> Add Images For Your Property</h4>
-            <div class="form-group">
-                <label asp-for="FormCover"> Add Main Cover</label>
-                <input asp-for="FormCover" type="file" class="form-control-file" />
-                <span asp-validation-for="FormCover" class="text text-danger"> </span>
+        <div class="form-row row mt-4">
+            <div class="col-md-6">
+                    <div class="  col-md-12" style="  margin-bottom:3rem;margin-top:3rem">
+                        <h4> Add Images For Your Property</h4>
+                    </div>
+
+                    <div class="form-group ">
+                        <label asp-for="FormCover"> Add Main Cover</label>
+                        <input asp-for="FormCover" type="file" class="form-control-file" />
+                        <span asp-validation-for="FormCover" class="text text-danger"> </span>
+                    </div>
+                    <div class="form-group mt-4">
+                        <label asp-for="FormFiles">Add Others Images </label>
+                        <input asp-for="FormFiles" type="file" multiple class="form-control-file" />
+                        <span asp-validation-for="FormFiles" class="text text-danger"> </span>
+                    </div>
             </div>
-            <div class="form-group mt-3">
-                <label asp-for="FormFiles">Add Others Images </label>
-                <input asp-for="FormFiles" type="file" multiple class="form-control-file" />
-                <span asp-validation-for="FormFiles" class="text text-danger"> </span>
+
+            <div class="col-sm-12 col-md-6 d-flex justify-content-center pt-4 overflow-hidden">
+                    <img class="cover-preview m-auto " src="~/assets/images/NoImage.png" alt="Cover" style="width: inherit" />
             </div>
+          
         </div>
         <!--End Images -->
         <!--Map -->
-        <div>
+        <div class="mt-4" >
             <h4>Add Your Property Location On Map</h4>
             <p>Just Click on Map then Submit the Location , if You did not Pass this Step Successfully Just Contuct Us to get Help by Click <a asp-action="">Here</a> </p>
-            <div class="row">
+            <div class="form-row row">
                 <!-- Reference to the Bing Maps SDK -->
                 <script type='text/javascript'
                         src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=[ArTYnXAo5ajG1e4ZyFIV-LT3sW_IU0Uy2YETN7N-u5EdkJOaOwaft6BOA1SPlVfA]'
                         async defer>
                 </script>
-                <div class="col-md-6" id="myMap" style='position:relative;width:600px;height:400px;' onload="GetMap();"></div>
-                <input id="lat" name="latcord" />
-                <input id="long" name="longcord" />
-                <a asp-action="">Submit Location</a>
-
+                <div class="col-md-12" id="myMap" style='position:relative;height:400px;' onload="GetMap();"></div>
+                <div id="typlatcord" hidden> </div>
+                <div id="typlongcord" hidden> </div>
+              
+                    <div class="row">
+                        <div class="form-group col-md-6 col-lg-3 mb-2">
+                            <label asp-for="longitude">  </label>
+                            <input id="lat" name="latcord" asp-for="longitude" class="form-control " style="margin-right:1rem;" />
+                            <span asp-validation-for="longitude" class="text text-danger"> </span>
+                        </div>
+                        <div class="form-group col-md-6 col-lg-3  mb-2">
+                            <label asp-for="latitude"></label>
+                            <input id="long" name="longcord" asp-for="latitude" class="form-control" />
+                            <span asp-validation-for="latitude" class="text text-danger"> </span>
+                        </div>
+                    </div>
+                
             </div>
         </div>
         <!--End Map -->
 
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary mt-3">Save And Finish</button>
     </form>
 </div>
 
@@ -240,3 +323,14 @@
 
 </script>
 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $('#FormCover').on('change', function () {
+                $('.cover-preview').attr('src', window.URL.createObjectURL(this.files[0])).removeClass('d-none');
+            });
+        });
+    </script>
+
+}

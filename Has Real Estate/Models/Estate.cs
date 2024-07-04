@@ -5,12 +5,14 @@ namespace Has_Real_Estate.Models
     public class Estate
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string OwnerName { get; set; } = string.Empty;
+        public int OwnerPhone { get; set; }
         [ForeignKey("User")]
-        public string UserId { get; set; }
+        public string UserId { get; set; } 
+        public AppUser User { get; set; }
         public string Governorate { get; set; } 
-        public string City { get; set; }
-        public string Street { get; set; }
+        public string City { get; set; }        public string Street { get; set; }
         public double longitude { get; set; }
         public double latitude { get; set; }
 
@@ -45,7 +47,10 @@ namespace Has_Real_Estate.Models
         public bool IsApproved { get; set; } = false;
         public bool ForRent { get; set; } = false;
         public bool ForSale { get; set; } = false;
-
+        public Category Category { get; set; }
+        public MethodPay MethodPay { get; set; }
+        public LegalType LegalType { get; set; }
+        public CompleteBuildingState CompleteBuildingState { get; set; }
         //navigation
         public ICollection<EstateImages>? EstateImages { get; set; }
 
@@ -53,16 +58,30 @@ namespace Has_Real_Estate.Models
     }
     public enum Category
     {
-        appartement,
-        house,
-        villa,
-        farm,
-        office
+        Appartement,
+        House,
+        Villa,
+        Farm,
+        Office
     }
     public enum MethodPay
     {
-        VisaCard,
-        MasterCard,
-        PayPal
+        Cash,
+        Loan,
+        Installment_payment
+    }
+    public enum LegalType
+    {
+        Green,
+        White,
+        Endowments,
+        Agriculture,
+        Violation
+    }
+    public enum CompleteBuildingState
+    {
+        UnderConstruction,
+        MidComplete,
+        Complete
     }
 }

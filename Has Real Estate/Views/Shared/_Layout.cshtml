@@ -12,13 +12,14 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="/css/Google web fonts.css">
+    
+    <link rel="stylesheet" href="~/theme/css/google web fonts.css" />
 
     <!-- Icon Font Stylesheet --> 
     <link rel="stylesheet" href="~/theme/fontawesome-free-6.5.2-web/css/all.css" />
     <link rel="stylesheet" href="~/theme/fontawesome-free-6.5.2-web/css/all.min.css" />
 
-    <!-- Libraries Stylesheet -->     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Libraries Stylesheet -->      
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EstateWebsite.styles.css" asp-append-version="true" />
 
@@ -59,9 +60,7 @@
                                 <a asp-action="Create" asp-controller="Estate" class="dropdown-item">Rent Your Property</a>
                                 <a asp-action="Index" asp-controller="Estate" class="dropdown-item">Manage Your Properties</a>
                             </div>
-                        </div>
-
-                         
+                        </div>  
                     </div>
                      
                     <partial name="_LoginPartial" />
@@ -166,7 +165,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script> *@
 
-    <!-- JavaScript Libraries -->
+    <!-- Template Libraries -->
     <script src="~/theme/js/jquery-3.4.1.min.js"></script>
     <script src="~/theme/js/bootstrap.bundle.min.js"></script>
     <script src="~/theme/lib/wow/wow.min.js"></script>
@@ -175,17 +174,10 @@
     <script src="~/theme/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="~/theme/js/main.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/theme/js/main.js"></script> 
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.esm.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.esm.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+     
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

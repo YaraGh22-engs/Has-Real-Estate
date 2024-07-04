@@ -35,6 +35,8 @@ namespace Has_Real_Estate.Controllers
             {
                 SelectCategory = GetEnumSelectList<Category>(),
                 SelectMethodPay = GetEnumSelectList<MethodPay>(),
+                SelectLegalType = GetEnumSelectList<LegalType>(),
+                SelectCompleteBuildingState = GetEnumSelectList<CompleteBuildingState>(),
             };
             return View(viewModel);
         }
@@ -43,6 +45,11 @@ namespace Has_Real_Estate.Controllers
         {
             if (!ModelState.IsValid)
             {
+                viewModel.SelectCategory = GetEnumSelectList<Category>();
+                viewModel.SelectMethodPay = GetEnumSelectList<MethodPay>();
+                viewModel.SelectLegalType = GetEnumSelectList<LegalType>();
+                viewModel.SelectCompleteBuildingState = GetEnumSelectList<CompleteBuildingState>();
+
                 return View(viewModel);
             }
             var isAdded = _estateRepo.Create(viewModel);

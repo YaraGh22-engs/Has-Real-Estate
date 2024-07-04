@@ -17,7 +17,7 @@ namespace Has_Real_Estate.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -95,7 +95,7 @@ namespace Has_Real_Estate.Data.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Has_Real_Estate.Models.Estate", b =>
@@ -109,9 +109,15 @@ namespace Has_Real_Estate.Data.Migrations
                     b.Property<double>("Area")
                         .HasColumnType("float");
 
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CompleteBuildingState")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("Cover")
                         .IsRequired()
@@ -132,6 +138,12 @@ namespace Has_Real_Estate.Data.Migrations
 
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
+
+                    b.Property<int>("LegalType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MethodPay")
+                        .HasColumnType("int");
 
                     b.Property<int>("NBalcone")
                         .HasColumnType("int");
@@ -170,6 +182,13 @@ namespace Has_Real_Estate.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OwnerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OwnerPhone")
+                        .HasColumnType("int");
+
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
@@ -179,7 +198,7 @@ namespace Has_Real_Estate.Data.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<double>("latitude")
                         .HasColumnType("float");
@@ -189,7 +208,9 @@ namespace Has_Real_Estate.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Estates");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Estates", (string)null);
                 });
 
             modelBuilder.Entity("Has_Real_Estate.Models.EstateImages", b =>
@@ -211,7 +232,7 @@ namespace Has_Real_Estate.Data.Migrations
 
                     b.HasIndex("EstateId");
 
-                    b.ToTable("EstateImages");
+                    b.ToTable("EstateImages", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -238,7 +259,7 @@ namespace Has_Real_Estate.Data.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("AspNetRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -263,7 +284,7 @@ namespace Has_Real_Estate.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleClaims", (string)null);
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -288,7 +309,7 @@ namespace Has_Real_Estate.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserClaims", (string)null);
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -310,7 +331,7 @@ namespace Has_Real_Estate.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLogins", (string)null);
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -325,7 +346,7 @@ namespace Has_Real_Estate.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("AspNetUserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -344,7 +365,18 @@ namespace Has_Real_Estate.Data.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("UserTokens", (string)null);
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Has_Real_Estate.Models.Estate", b =>
+                {
+                    b.HasOne("Has_Real_Estate.Models.AppUser", "User")
+                        .WithMany("Estates")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Has_Real_Estate.Models.EstateImages", b =>
@@ -407,6 +439,11 @@ namespace Has_Real_Estate.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Has_Real_Estate.Models.AppUser", b =>
+                {
+                    b.Navigation("Estates");
                 });
 
             modelBuilder.Entity("Has_Real_Estate.Models.Estate", b =>

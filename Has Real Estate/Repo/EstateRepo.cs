@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 
 namespace Has_Real_Estate.Repo
@@ -8,14 +10,14 @@ namespace Has_Real_Estate.Repo
         private readonly ApplicationDbContext _context;
         private readonly IUserService _userService;
         private readonly IImageService _imageService;
-        private readonly IMapper _mapper;
+        private readonly IMapper _mapper; 
         public EstateRepo(ApplicationDbContext context, IUserService userService, IImageService imageService, IMapper mapper)
         {
             _context = context;
             _userService = userService;
             _imageService = imageService;
-            _mapper = mapper;
-        }
+            _mapper = mapper; 
+        } 
         public IEnumerable<Estate> GetEstates()
         {
             return _context.Estates.ToList();
@@ -31,6 +33,7 @@ namespace Has_Real_Estate.Repo
         }
         public int Create(CreateEstateVM viewModel)
         {
+            var userId = _userService.GetUserId();
             var estate = _mapper.Map<Estate>(viewModel);
             estate.UserId = _userService.GetUserId();
             estate.Cover = _imageService.SaveImageInDatabase(viewModel.FormCover);
