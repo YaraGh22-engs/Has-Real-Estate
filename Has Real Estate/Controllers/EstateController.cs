@@ -137,7 +137,7 @@ namespace Has_Real_Estate.Controllers
 
             return isDeleted ? Ok() : BadRequest();
         }
-        public IActionResult ForSaleHome()
+        public IActionResult Explore()
         {
             var es = _estateRepo.GetEstates();
             return View(es);
