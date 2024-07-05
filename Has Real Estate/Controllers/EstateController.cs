@@ -28,7 +28,7 @@ namespace Has_Real_Estate.Controllers
         }
         public IActionResult Index()
         {
-            return View(_estateRepo.GetEstates());
+            return View(_estateRepo.GetEstatesByUserId());
         }
         public IActionResult Create()
         {
@@ -136,6 +136,12 @@ namespace Has_Real_Estate.Controllers
             var isDeleted = _estateRepo.Delete(id);
 
             return isDeleted ? Ok() : BadRequest();
+        }
+        public IActionResult ForSaleHome()
+        {
+            var es = _estateRepo.GetEstates();
+            return View(es);
+
         }
     }
 }

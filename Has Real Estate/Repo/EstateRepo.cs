@@ -10,14 +10,16 @@ namespace Has_Real_Estate.Repo
         private readonly ApplicationDbContext _context;
         private readonly IUserService _userService;
         private readonly IImageService _imageService;
-        private readonly IMapper _mapper; 
-        public EstateRepo(ApplicationDbContext context, IUserService userService, IImageService imageService, IMapper mapper)
+        private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public EstateRepo(ApplicationDbContext context, IUserService userService, IImageService imageService, IMapper mapper, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _userService = userService;
             _imageService = imageService;
-            _mapper = mapper; 
-        } 
+            _mapper = mapper;
+            _webHostEnvironment = webHostEnvironment;
+        }
         public IEnumerable<Estate> GetEstates()
         {
             return _context.Estates.ToList();
@@ -115,7 +117,7 @@ namespace Has_Real_Estate.Repo
 
             var isDeleted = false;
 
-            var est = _context.Estates.Include(x => x.EstateImages).FirstOrDefault(x => x.Id==id);
+            var est = GetById(id);
                
             if (est is null)
                 return isDeleted;
@@ -123,17 +125,17 @@ namespace Has_Real_Estate.Repo
             _context.Remove(est);
             isDeleted = true;
             var effectedRows = _context.SaveChanges();
-            
-            //if (effectedRows > 0)
-            //{
-            //    isDeleted = true;
-            //    foreach (var img in est.EstateImages)
-            //    {
-            //        var cover = Path.Combine(Settings.imagesPath, img.Path);
-            //        File.Delete(cover);
-            //    }
 
-            //}
+            if (effectedRows > 0)
+            {
+                isDeleted = true;
+                foreach (var img in est.EstateImages)
+                {
+                    var cover = Path.Combine($"{_webHostEnvironment.WebRootPath}{Settings.imagesPath}", img.Path);
+                    File.Delete(cover);
+                }
+
+            }
 
             return isDeleted;
         }
@@ -152,6 +154,20 @@ namespace Has_Real_Estate.Repo
             return null;
         }
 
+        public IEnumerable<Estate> GetEstatesByUserId()
+        {
+            var userId = _userService.GetUserId();
+            if (userId == null)
+                throw new UnauthorizedAccessException("user is not logged-in");
 
+            var estates= _context.Estates.Include(x=>x.EstateImages)
+                                         .Where(x=>x.UserId==userId)
+                                         .AsNoTracking()
+                                         .ToList();
+
+
+            return estates;
+
+        }
     }
 }
