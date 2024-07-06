@@ -7,8 +7,8 @@ namespace Has_Real_Estate.ViewModel
     {
         public string Name { get; set; } = string.Empty;
         public string OwnerName { get; set; } = string.Empty;
-        public int OwnerPhone { get; set; } 
-        public string Governorate { get; set; }
+        public int OwnerPhone { get; set; }
+        public Governorate Governorate { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
         public double longitude { get; set; }
@@ -52,6 +52,7 @@ namespace Has_Real_Estate.ViewModel
         public IEnumerable<SelectListItem> SelectMethodPay { get; set; } = Enumerable.Empty<SelectListItem>();
         public IEnumerable<SelectListItem> SelectLegalType { get; set; } = Enumerable.Empty<SelectListItem>();
         public IEnumerable<SelectListItem> SelectCompleteBuildingState { get; set; } = Enumerable.Empty<SelectListItem>();
+        public IEnumerable<SelectListItem> SelectGovernorate { get; set; } = Enumerable.Empty<SelectListItem>();
 
     }
 }

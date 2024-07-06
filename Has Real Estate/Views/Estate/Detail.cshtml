@@ -1,9 +1,8 @@
 ﻿@model Estate
 
 <div class="container mt-4">
-    <!--Images-->
-    <div class="   ">
-        <!-- Carousel -->
+    <!--Images Carousel-->
+    <div class="   "> 
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <!-- The slideshow/carousel -->
             <div class="carousel-inner">
@@ -28,7 +27,7 @@
             </button>
         </div>
     </div>
-    <div class="row mt-3">
+    <div class="row mt-3 mb-4">
         <!--Right Column-->
          <!--Map-->
         <div class="col-md-8 col-lg-8 mt-4">
@@ -43,7 +42,8 @@
             </div>
         </div>
         <!--Left Column-->
-        <div class="col-md-4 col-lg-4"> 
+        <div class="col-md-4 col-lg-4 mt-4">
+            <h4>HighLights</h4>
             <div class="mb-4 mt-2">
                 @if (Model.ForSale == true)
                 {
@@ -162,16 +162,28 @@
 <script type='text/javascript'>
     function GetMap() {
 
+
+        ///////////////Converting the C# Model to JS model
+        // convsert the data base table to Array in json type
+        var home = @Html.Raw(Json.Serialize(Model));
+
+
         //You can customize the map as you load it.
         // Use the following code to update how the map is loaded in the GetMap function such that it sets the type to aerial,
         // the zoom level to 10, and the map center over London, UK (51.50632, -0.12714).
         var map = new Microsoft.Maps.Map('#myMap', {
             credentials: 'ArTYnXAo5ajG1e4ZyFIV-LT3sW_IU0Uy2YETN7N-u5EdkJOaOwaft6BOA1SPlVfA',
-            center: new Microsoft.Maps.Location(35.340192118895025, 35.93475407561252),
+            center: new Microsoft.Maps.Location(home.longitude, home.latitude),
             mapTypeId: Microsoft.Maps.MapTypeId.aerial,
             zoom: 10
         });
-
+       
+        var location = new Microsoft.Maps.Location(home.longitude, home.latitude);
+        var pin = new Microsoft.Maps.Pushpin(location, {
+            color: 'green',
+            title: home.name,
+        });
+        map.entities.push(pin);
 
         //////////////////Pushpins, sometimes known as MapIcons or Markers,
         // are the primary method in the Bing Maps V8 Map Control to add a graphical image and text at a location within the map.
@@ -184,20 +196,11 @@
             title: 'Jableh',
             subTitle: 'City Center',
 
-        });
-        //Add the pushpin to the map
+        }); 
         map.entities.push(pin);
 
 
-        ///////////////Converting the C# Model to JS model
-        // convsert the data base table to Array in json type
-        var home = @Html.Raw(Json.Serialize(Model));
-        var location = new Microsoft.Maps.Location(home.longitude, home.latitude);
-        var pin = new Microsoft.Maps.Pushpin(location, {
-            color: 'green',
-            title: home.name,
-        });
-        map.entities.push(pin);
+        
 
 
     } // end of Getmap()

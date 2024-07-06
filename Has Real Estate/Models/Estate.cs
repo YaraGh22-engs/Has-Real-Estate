@@ -11,7 +11,7 @@ namespace Has_Real_Estate.Models
         [ForeignKey("User")]
         public string UserId { get; set; } 
         public AppUser User { get; set; }
-        public string Governorate { get; set; } 
+        public Governorate Governorate { get; set; }
         public string City { get; set; }        
         public string Street { get; set; }
         public double longitude { get; set; }
@@ -52,6 +52,7 @@ namespace Has_Real_Estate.Models
         public MethodPay MethodPay { get; set; }
         public LegalType LegalType { get; set; }
         public CompleteBuildingState CompleteBuildingState { get; set; }
+ 
         //navigation
         public ICollection<EstateImages>? EstateImages { get; set; }
 
@@ -84,5 +85,22 @@ namespace Has_Real_Estate.Models
         UnderConstruction,
         MidComplete,
         Complete
+    }
+    public enum Governorate
+    {
+        Aleppo,
+        Damascus,
+        Daraa,
+        Deir_ez_Zor,
+        Hama,
+        Hasakah,
+        Homs,
+        Idlib,
+        Latakia,
+        Quneitra,
+        Raqqah,
+        Rif_Dimashq,
+        Suwayda,
+        Tartus,
     }
 }

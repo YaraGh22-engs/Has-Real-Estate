@@ -1,5 +1,7 @@
 
 using System;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using Has_Real_Estate.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -25,11 +27,16 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
     .AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+//for map
+builder.Services.AddControllersWithViews()
+               .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+ 
 
 builder.Services.AddScoped<IEstateRepo, EstateRepo>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IUserService, UserService>(); 
 builder.Services.AddAutoMapper(typeof(Program));
+
 
 
 var app = builder.Build();
