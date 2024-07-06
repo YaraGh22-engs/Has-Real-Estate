@@ -62,6 +62,11 @@
                                 <a asp-action="Index" asp-controller="Estate" class="dropdown-item">Manage Your Properties</a>
                             </div>
                         </div>  
+                        @if (User.IsInRole(ClsRoles.roleAdmin))
+                        {
+                            <a class="nav-link" asp-controller="AdminOperations" asp-action="Dashboard">Admin Dashboard</a>
+                        }
+                        
                     </div>
                      
                     <partial name="_LoginPartial" />

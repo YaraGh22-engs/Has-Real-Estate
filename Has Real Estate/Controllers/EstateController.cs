@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Has_Real_Estate.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -29,10 +30,12 @@ namespace Has_Real_Estate.Controllers
 
             return selectList;
         }
+        [Authorize]
         public IActionResult Index()
         {
             return View(_estateRepo.GetEstatesByUserId());
         }
+        [Authorize]
         public IActionResult Create()
         {
             var viewModel = new CreateEstateVM()

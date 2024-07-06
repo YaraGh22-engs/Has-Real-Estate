@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System;
 
 namespace Has_Real_Estate.Repo
 {
+   
     public class EstateRepo : IEstateRepo
     {
         private readonly ApplicationDbContext _context;
