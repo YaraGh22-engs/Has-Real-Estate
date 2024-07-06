@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EstateWebsite</title>
+    <title>@ViewData["Title"]  EstateWebsite</title>
 
     <!-- Favicon -->
     <link rel="icon" href="img/favicon.ico">
@@ -64,7 +64,7 @@
                         </div>  
                         @if (User.IsInRole(ClsRoles.roleAdmin))
                         {
-                            <a class="nav-link" asp-controller="AdminOperations" asp-action="Dashboard">Admin Dashboard</a>
+                            <a class="nav-link" asp-controller="AdminOperations" asp-action="Index">Admin Dashboard</a>
                         }
                         
                     </div>
