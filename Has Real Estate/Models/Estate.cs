@@ -12,7 +12,8 @@ namespace Has_Real_Estate.Models
         public string UserId { get; set; } 
         public AppUser User { get; set; }
         public string Governorate { get; set; } 
-        public string City { get; set; }        public string Street { get; set; }
+        public string City { get; set; }        
+        public string Street { get; set; }
         public double longitude { get; set; }
         public double latitude { get; set; }
 

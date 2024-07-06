@@ -2,6 +2,7 @@
 using Has_Real_Estate.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Has_Real_Estate.Controllers
 {
@@ -9,11 +10,13 @@ namespace Has_Real_Estate.Controllers
     {
         private readonly IEstateRepo _estateRepo;
         private readonly IMapper _mapper;
+        private readonly ApplicationDbContext _context;
 
-        public EstateController(IEstateRepo estateRepo, IMapper mapper)
+        public EstateController(IEstateRepo estateRepo, IMapper mapper, ApplicationDbContext context)
         {
             _estateRepo = estateRepo;
             _mapper = mapper;
+            _context = context;
         }
         public static List<SelectListItem> GetEnumSelectList<T>()
         {
@@ -142,6 +145,14 @@ namespace Has_Real_Estate.Controllers
             var es = _estateRepo.GetEstates();
             return View(es);
 
+        }
+        public async Task<IActionResult> Detail(int estateId) 
+        {
+            var es =await _context.Estates.Include(h => h.EstateImages)
+                                           .Where(h => h.Id == estateId)
+                                           .SingleOrDefaultAsync();
+            //var es =await _estateRepo.GetById(estateId);
+            return View(es);
         }
     }
 }

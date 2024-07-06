@@ -136,3 +136,72 @@ input:focus {
     font-size: 1.25em; /* Adjust the size as needed */
     font-weight: bold; /* Optional: make the text bold */
 }
+
+/* My Css*/
+
+.devt 
+{
+    gap: 40px;
+    display: flex;
+    flex-direction: row;
+
+}
+.fonty {
+    color: rgb(42, 42, 51);
+    -webkit-font-smoothing: antialiased;
+    text-transform: none;
+    font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+}
+.spanfor {
+    font-size: 15px; 
+    color: rgb(42, 42, 51);     font-weight: 700;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    vertical-align: top;
+    border-radius: 4px;
+    padding: 2px 8px;
+    text-transform: none;
+    background-color: rgb(241, 241, 244);
+    box-sizing: border-box;
+}
+.loc {
+    font-size: 20px;
+    line-height: 32px; 
+    font-weight: 400;
+}
+.h5price 
+{
+    font-size: 32px; 
+    color: rgb(42, 42, 51);     text-transform: none;
+    font-family: "Open Sans", "Adjusted Arial", Tahoma, Geneva, sans-serif;
+    font-weight: 700;
+}
+.spany
+{
+    display: block;
+    text-align: start;
+    font-size: 20px;
+     
+    
+    font-weight: 700;
+    text-align: start;
+}
+.spant
+{
+    display: block; 
+    font-size: 20px;
+     
+    font-weight: 400;
+}
+.line {
+
+    width: 153px;
+    height: 0;
+    border: 1px solid #C4C4C4;
+    margin: 3px;
+    display: inline-block;
+}
