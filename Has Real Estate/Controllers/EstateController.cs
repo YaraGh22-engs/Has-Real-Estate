@@ -12,12 +12,15 @@ namespace Has_Real_Estate.Controllers
         private readonly IEstateRepo _estateRepo;
         private readonly IMapper _mapper;
         private readonly ApplicationDbContext _context;
+        private readonly IUserService _userService;
 
-        public EstateController(IEstateRepo estateRepo, IMapper mapper, ApplicationDbContext context)
+        public EstateController(IEstateRepo estateRepo, IMapper mapper, ApplicationDbContext context,IUserService userService)
         {
             _estateRepo = estateRepo;
             _mapper = mapper;
             _context = context;
+            _userService= userService;
+
         }
         public static List<SelectListItem> GetEnumSelectList<T>()
         {
@@ -192,10 +195,39 @@ namespace Has_Real_Estate.Controllers
         public async Task<IActionResult> Detail(int estateId) 
         {
             var es =await _context.Estates.Include(h => h.EstateImages)
+                                          .Include(h=>h.SavedProperties) 
                                            .Where(h => h.Id == estateId)
                                            .SingleOrDefaultAsync();
             //var es =await _estateRepo.GetById(estateId);
             return View(es);
+        }
+        [Authorize]
+        public async Task<IActionResult> Save(int estateId)
+        {
+            //await _estateRepo.SaveProperty(estateId); 
+            //ViewBag.Message = "You Added It To Wish List";
+
+            var userId = _userService.GetUserId();
+            var isSaved = await _context.SavedProperties.Where(x => x.UserId == userId && x.EstateId == estateId)
+                                                      .SingleOrDefaultAsync();
+            if (isSaved == null)
+            {
+                SavedProperty SP = new SavedProperty
+                {
+                    UserId = userId,
+                    EstateId = estateId 
+                }; 
+                await _context.SavedProperties.AddAsync(SP);
+                await _context.SaveChangesAsync(); 
+                TempData["successMessage"] = "Saved";
+            }
+            else
+            {
+                _context.SavedProperties.Remove(isSaved);
+                _context.SaveChanges();
+                TempData["successMessage"] = "Removed";
+            }
+            return RedirectToAction("Detail", "Estate", new { estateId = estateId });
         }
     }
 }

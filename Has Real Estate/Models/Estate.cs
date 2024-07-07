@@ -45,7 +45,7 @@ namespace Has_Real_Estate.Models
         public int NDepot { get; set; }
         public byte[] Cover { get; set; }
         public string? ExtraFeatures { get; set; }
-        public bool IsApproved { get; set; } = false;
+        public bool IsApproved { get; set; } = false; 
         public bool ForRent { get; set; } = false;
         public bool ForSale { get; set; } = false;
         public Category Category { get; set; }
@@ -55,6 +55,7 @@ namespace Has_Real_Estate.Models
  
         //navigation
         public ICollection<EstateImages>? EstateImages { get; set; }
+        public ICollection<SavedProperty>? SavedProperties { get; set; }
 
 
     }

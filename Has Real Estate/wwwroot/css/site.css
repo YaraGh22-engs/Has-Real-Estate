@@ -205,3 +205,24 @@ input:focus {
     margin: 3px;
     display: inline-block;
 }
+
+.btnheart {
+    font-size: 15px;
+     
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    vertical-align: top;
+    border-radius: 4px;
+    padding: 2px 8px;
+    text-transform: none; 
+    box-sizing: border-box;
+}
+
+.visit {
+    fill: lightblue;
+}
+
+a:active .visit {
+    fill: green;
+}

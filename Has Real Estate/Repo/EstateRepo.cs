@@ -197,5 +197,28 @@ namespace Has_Real_Estate.Repo
                 .Where(e => e.ForSale == true).AsNoTracking().ToList();
         }
 
+        public async Task SaveProperty(int estateId)
+        {
+            var userId= _userService.GetUserId(); 
+            var isSaved=await _context.SavedProperties.Where(x => x.UserId==userId && x.EstateId==estateId)
+                                                      .SingleOrDefaultAsync();
+            if (isSaved == null)
+            {
+                SavedProperty SP = new SavedProperty
+                {
+                    UserId = userId,
+                    EstateId = estateId
+
+                };
+                
+                await _context.SavedProperties.AddAsync(SP);
+                await _context.SaveChangesAsync(); 
+            }
+            else
+            {
+                _context.SavedProperties.Remove(isSaved);
+                _context.SaveChanges();
+            } 
+        }
     }
 }

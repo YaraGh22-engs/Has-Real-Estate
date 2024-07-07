@@ -4,6 +4,7 @@ using Has_Real_Estate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Has_Real_Estate.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240707134709_m09")]
+    partial class m09
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -423,7 +426,7 @@ namespace Has_Real_Estate.Data.Migrations
                         .HasForeignKey("AppUserId");
 
                     b.HasOne("Has_Real_Estate.Models.Estate", null)
-                        .WithMany("SavedProperties")
+                        .WithMany("userSavers")
                         .HasForeignKey("EstateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -491,7 +494,7 @@ namespace Has_Real_Estate.Data.Migrations
                 {
                     b.Navigation("EstateImages");
 
-                    b.Navigation("SavedProperties");
+                    b.Navigation("userSavers");
                 });
 #pragma warning restore 612, 618
         }

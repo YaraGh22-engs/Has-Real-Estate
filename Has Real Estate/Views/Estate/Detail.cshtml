@@ -19,11 +19,11 @@
             <!-- Left and right controls/icons -->
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
+                <span class="">Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
+                <span class=" ">Next</span>
             </button>
         </div>
     </div>
@@ -46,7 +46,7 @@
             <!--Left Column-->
             <div class="col-md-4 col-lg-4 mt-4">
                 <h4>HighLights</h4>
-                <div class="mb-4 mt-2">
+                <div class="mb-4 mt-2" >
                 @if (Model.ForSale == true)
                 {
                         <span class="spanfor"><i class="bi bi-dot"></i>For Sell</span>
@@ -55,6 +55,14 @@
                 {
                         <div class="spanfor"><i class="bi bi-dot"></i>For Rent</div>
                 }
+                    <div class="btnheart " >
+                        <a asp-action="Save" asp-route-estateId="@Model.Id" >
+                            <i  class="  far fa-heart fs-4"></i>
+                        </a> 
+                        <div class=""style="margin-left:1rem">@TempData["successMessage"]</div>
+                        
+                    </div> 
+                    
                 </div>
                 <div class="d-flex mb-2">
                     <span class="fonty">  <i class="bi bi-house-heart-fill fs-4"></i> @Model.Category</span>
@@ -208,14 +216,10 @@
             subTitle: 'City Center',
 
         }); 
-        map.entities.push(pin);
-
-
-        
-
-
-    } // end of Getmap()
-
-
-
+        map.entities.push(pin); 
+    } // end of Getmap() 
+</script>
+<script>
+    
+     
 </script>
