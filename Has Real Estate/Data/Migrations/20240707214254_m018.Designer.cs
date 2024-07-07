@@ -4,6 +4,7 @@ using Has_Real_Estate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Has_Real_Estate.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240707214254_m018")]
+    partial class m018
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,6 +109,9 @@ namespace Has_Real_Estate.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<double>("Area")
                         .HasColumnType("float");
 
@@ -197,7 +203,7 @@ namespace Has_Real_Estate.Data.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("latitude")
                         .HasColumnType("float");
@@ -207,7 +213,7 @@ namespace Has_Real_Estate.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Estates");
                 });
@@ -396,13 +402,9 @@ namespace Has_Real_Estate.Data.Migrations
 
             modelBuilder.Entity("Has_Real_Estate.Models.Estate", b =>
                 {
-                    b.HasOne("Has_Real_Estate.Models.AppUser", "AppUser")
+                    b.HasOne("Has_Real_Estate.Models.AppUser", null)
                         .WithMany("Estates")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
+                        .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("Has_Real_Estate.Models.EstateImages", b =>

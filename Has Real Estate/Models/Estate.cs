@@ -8,9 +8,9 @@ namespace Has_Real_Estate.Models
         public string Name { get; set; } = string.Empty;
         public string OwnerName { get; set; } = string.Empty;
         public int OwnerPhone { get; set; }
-        [ForeignKey("User")]
-        public string UserId { get; set; } 
-        public AppUser User { get; set; }
+        [ForeignKey(nameof(AppUser))]
+        public string UserId { get; set; }
+        public AppUser AppUser { get; set; }
         public Governorate Governorate { get; set; }
         public string City { get; set; }        
         public string Street { get; set; }
@@ -48,15 +48,15 @@ namespace Has_Real_Estate.Models
         public bool IsApproved { get; set; } = false; 
         public bool ForRent { get; set; } = false;
         public bool ForSale { get; set; } = false;
-        public Category Category { get; set; }
+        public Category Category { get; set; } = default!;
         public MethodPay MethodPay { get; set; }
         public LegalType LegalType { get; set; }
         public CompleteBuildingState CompleteBuildingState { get; set; }
  
         //navigation
-        public ICollection<EstateImages>? EstateImages { get; set; }
-        public ICollection<SavedProperty>? SavedProperties { get; set; }
-
+        public List<EstateImages>? EstateImages { get; set; } = new List<EstateImages>(); 
+        public List<SavedProperty>? SavedProperties { get; set; } = new List<SavedProperty>(); 
+ 
 
     }
     public enum Category

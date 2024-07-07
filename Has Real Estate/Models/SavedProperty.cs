@@ -3,12 +3,11 @@
     public class SavedProperty
     {
         public int Id { get; set; }
+        public string UserId { get; set; }
         [ForeignKey("Estate")]
         public int EstateId { get; set; }
-        Estate Estate { get; set; }
-        [ForeignKey("User")]
-        public string UserId { get; set; }
-        AppUser User { get; set; }
+        public Estate Estate { get; set; } = default!;
+
         //bool IsAdded {  get; set; }=true;
     }
 }

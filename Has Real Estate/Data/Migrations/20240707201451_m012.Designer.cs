@@ -4,6 +4,7 @@ using Has_Real_Estate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Has_Real_Estate.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240707201451_m012")]
+    partial class m012
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -396,13 +399,13 @@ namespace Has_Real_Estate.Data.Migrations
 
             modelBuilder.Entity("Has_Real_Estate.Models.Estate", b =>
                 {
-                    b.HasOne("Has_Real_Estate.Models.AppUser", "AppUser")
+                    b.HasOne("Has_Real_Estate.Models.AppUser", "User")
                         .WithMany("Estates")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AppUser");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Has_Real_Estate.Models.EstateImages", b =>
@@ -422,13 +425,11 @@ namespace Has_Real_Estate.Data.Migrations
                         .WithMany("SavedProperties")
                         .HasForeignKey("AppUserId");
 
-                    b.HasOne("Has_Real_Estate.Models.Estate", "Estate")
+                    b.HasOne("Has_Real_Estate.Models.Estate", null)
                         .WithMany("SavedProperties")
                         .HasForeignKey("EstateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Estate");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

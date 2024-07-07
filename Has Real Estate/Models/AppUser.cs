@@ -7,7 +7,7 @@
         [NotMapped]
         public IFormFile? ProfilePictureFile { get; set; }
         public byte[]? ProfilePicture { get; set; }
-        public List<Estate> Estates { get; set; } 
-        public List<SavedProperty>? SavedProperties { get; set; }
+        public List<Estate> Estates { get; set; } = new List<Estate>();
+        public List<SavedProperty>? SavedProperties { get; set; } = new List<SavedProperty>();
     }
 }

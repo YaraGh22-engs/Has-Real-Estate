@@ -4,6 +4,7 @@ using Has_Real_Estate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Has_Real_Estate.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240707213244_m017")]
+    partial class m017
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,7 +200,7 @@ namespace Has_Real_Estate.Data.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("latitude")
                         .HasColumnType("float");
@@ -206,8 +209,6 @@ namespace Has_Real_Estate.Data.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Estates");
                 });
@@ -394,17 +395,6 @@ namespace Has_Real_Estate.Data.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Has_Real_Estate.Models.Estate", b =>
-                {
-                    b.HasOne("Has_Real_Estate.Models.AppUser", "AppUser")
-                        .WithMany("Estates")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("Has_Real_Estate.Models.EstateImages", b =>
                 {
                     b.HasOne("Has_Real_Estate.Models.Estate", "Estate")
@@ -484,8 +474,6 @@ namespace Has_Real_Estate.Data.Migrations
 
             modelBuilder.Entity("Has_Real_Estate.Models.AppUser", b =>
                 {
-                    b.Navigation("Estates");
-
                     b.Navigation("SavedProperties");
                 });
 

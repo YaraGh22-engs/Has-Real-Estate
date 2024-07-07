@@ -197,28 +197,52 @@ namespace Has_Real_Estate.Repo
                 .Where(e => e.ForSale == true).AsNoTracking().ToList();
         }
 
-        public async Task SaveProperty(int estateId)
-        {
-            var userId= _userService.GetUserId(); 
-            var isSaved=await _context.SavedProperties.Where(x => x.UserId==userId && x.EstateId==estateId)
-                                                      .SingleOrDefaultAsync();
-            if (isSaved == null)
-            {
-                SavedProperty SP = new SavedProperty
-                {
-                    UserId = userId,
-                    EstateId = estateId
+        //public async Task SaveProperty(int estateId)
+        //{
+        //    var userId= _userService.GetUserId(); 
+        //    var isSaved=await _context.SavedProperties.Where(x => x.UserId==userId && x.EstateId==estateId)
+        //                                              .SingleOrDefaultAsync();
+        //    if (isSaved == null)
+        //    {
+        //        SavedProperty SP = new SavedProperty
+        //        {
+        //            UserId = userId,
+        //            EstateId = estateId
 
-                };
+        //        };
                 
-                await _context.SavedProperties.AddAsync(SP);
-                await _context.SaveChangesAsync(); 
-            }
-            else
-            {
-                _context.SavedProperties.Remove(isSaved);
-                _context.SaveChanges();
-            } 
+        //        await _context.SavedProperties.AddAsync(SP);
+        //        await _context.SaveChangesAsync(); 
+        //    }
+        //    else
+        //    {
+        //        _context.SavedProperties.Remove(isSaved);
+        //        _context.SaveChanges();
+        //    } 
+        //}
+
+         
+
+        public Task SaveProperty(int estateId)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public IEnumerable<SavedProperty> GetSavedProperty()
+        {
+            var userId = _userService.GetUserId();
+
+            var sp = _context.SavedProperties.Include(x=>x.Estate)
+               . Where(x => x.UserId == userId)
+                                    .ToList();
+
+            var es = _context.Estates.Include(x=>x.AppUser)
+                .ThenInclude(x => x.SavedProperties)
+                                     .Where(x => x.UserId == userId)
+                                       .ToList();
+            return sp;
+
         }
     }
 }

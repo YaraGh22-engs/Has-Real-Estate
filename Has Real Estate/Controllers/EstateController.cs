@@ -195,30 +195,27 @@ namespace Has_Real_Estate.Controllers
         public async Task<IActionResult> Detail(int estateId) 
         {
             var es =await _context.Estates.Include(h => h.EstateImages)
-                                          .Include(h=>h.SavedProperties) 
+                                           
                                            .Where(h => h.Id == estateId)
-                                           .SingleOrDefaultAsync();
-            //var es =await _estateRepo.GetById(estateId);
+                                           .SingleOrDefaultAsync(); 
             return View(es);
         }
         [Authorize]
         public async Task<IActionResult> Save(int estateId)
         {
-            //await _estateRepo.SaveProperty(estateId); 
-            //ViewBag.Message = "You Added It To Wish List";
-
             var userId = _userService.GetUserId();
-            var isSaved = await _context.SavedProperties.Where(x => x.UserId == userId && x.EstateId == estateId)
-                                                      .SingleOrDefaultAsync();
+            var isSaved = await _context.SavedProperties
+                                         .Where(x => x.UserId == userId && x.EstateId == estateId)
+                                         .SingleOrDefaultAsync();
             if (isSaved == null)
             {
                 SavedProperty SP = new SavedProperty
                 {
                     UserId = userId,
-                    EstateId = estateId 
-                }; 
+                    EstateId = estateId, 
+                };
                 await _context.SavedProperties.AddAsync(SP);
-                await _context.SaveChangesAsync(); 
+                await _context.SaveChangesAsync();
                 TempData["successMessage"] = "Saved";
             }
             else
@@ -229,5 +226,12 @@ namespace Has_Real_Estate.Controllers
             }
             return RedirectToAction("Detail", "Estate", new { estateId = estateId });
         }
+
+        public IActionResult GetSavedProperty()
+        {
+            var es = _estateRepo.GetSavedProperty();
+            return View(es); 
+        }
+    
     }
 }

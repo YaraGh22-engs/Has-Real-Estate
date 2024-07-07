@@ -4,6 +4,7 @@ using Has_Real_Estate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Has_Real_Estate.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240707210141_m015")]
+    partial class m015
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,33 +237,6 @@ namespace Has_Real_Estate.Data.Migrations
                     b.ToTable("EstateImages");
                 });
 
-            modelBuilder.Entity("Has_Real_Estate.Models.SavedProperty", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("EstateId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("EstateId");
-
-                    b.ToTable("SavedProperties");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -396,34 +372,19 @@ namespace Has_Real_Estate.Data.Migrations
 
             modelBuilder.Entity("Has_Real_Estate.Models.Estate", b =>
                 {
-                    b.HasOne("Has_Real_Estate.Models.AppUser", "AppUser")
-                        .WithMany("Estates")
+                    b.HasOne("Has_Real_Estate.Models.AppUser", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AppUser");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Has_Real_Estate.Models.EstateImages", b =>
                 {
                     b.HasOne("Has_Real_Estate.Models.Estate", "Estate")
                         .WithMany("EstateImages")
-                        .HasForeignKey("EstateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Estate");
-                });
-
-            modelBuilder.Entity("Has_Real_Estate.Models.SavedProperty", b =>
-                {
-                    b.HasOne("Has_Real_Estate.Models.AppUser", null)
-                        .WithMany("SavedProperties")
-                        .HasForeignKey("AppUserId");
-
-                    b.HasOne("Has_Real_Estate.Models.Estate", "Estate")
-                        .WithMany("SavedProperties")
                         .HasForeignKey("EstateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -482,18 +443,9 @@ namespace Has_Real_Estate.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Has_Real_Estate.Models.AppUser", b =>
-                {
-                    b.Navigation("Estates");
-
-                    b.Navigation("SavedProperties");
-                });
-
             modelBuilder.Entity("Has_Real_Estate.Models.Estate", b =>
                 {
                     b.Navigation("EstateImages");
-
-                    b.Navigation("SavedProperties");
                 });
 #pragma warning restore 612, 618
         }

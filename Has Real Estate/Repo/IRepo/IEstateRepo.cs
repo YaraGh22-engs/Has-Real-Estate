@@ -15,5 +15,6 @@ namespace Has_Real_Estate.Repo.IRepo
         bool Delete(int id);
         IEnumerable<Estate> SearchByName(string searchName);
         Task SaveProperty(int estateId);
+        IEnumerable<SavedProperty> GetSavedProperty();
     }
 }
