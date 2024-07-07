@@ -171,7 +171,31 @@ namespace Has_Real_Estate.Repo
             return estates;
 
         }
+        public IEnumerable<Estate> SearchByName(string searchName)
+        { 
+               var es= _context.Estates?.Include(e => e.EstateImages)
+                                        .Where(p => p.Name.ToLower()
+                                        .Contains(searchName.ToLower()));
+                 return es;
+        }
 
-         
+        public int CountEstates(IEnumerable<Estate> estates)
+        {
+            if (estates == null)
+                return 0;
+            return estates.Count();
+        }
+        public IEnumerable<Estate> GetEstateForRent()
+        {
+            return _context.Estates?.Include(e => e.EstateImages)
+                .Where(e => e.ForRent == true).AsNoTracking().ToList();
+        }
+
+        public IEnumerable<Estate> GetEstateForSell()
+        {
+            return _context.Estates?.Include(e => e.EstateImages)
+                .Where(e => e.ForSale == true).AsNoTracking().ToList();
+        }
+
     }
 }

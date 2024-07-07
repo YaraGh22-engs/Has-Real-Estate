@@ -12,6 +12,7 @@ namespace Has_Real_Estate.Repo.IRepo
         int Update(UpdateEstateVM viewModel);
         int UpdateEstateImages(UpdateEstateImagesVM viewModel);
         int DeleteEstateImage(int estateId, string image);
-        bool Delete(int id); 
+        bool Delete(int id);
+        IEnumerable<Estate> SearchByName(string searchName);
     }
 }

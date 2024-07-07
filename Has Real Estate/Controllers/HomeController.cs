@@ -1,6 +1,7 @@
 using AutoMapper;
 using Has_Real_Estate.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 
 namespace Has_Real_Estate.Controllers
@@ -8,21 +9,33 @@ namespace Has_Real_Estate.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IEstateRepo _homeRepo;
+        private readonly IEstateRepo _estateRepo;
         private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger, IEstateRepo homeRepo, IMapper mapper)
+        public HomeController(ILogger<HomeController> logger, IEstateRepo estateRepo, IMapper mapper)
         {
             _logger = logger;
-            _homeRepo = homeRepo;
+            _estateRepo = estateRepo;
             _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? seachName, [FromQuery] Category? categoryName, int? minPrice, int? maxPrice)
         {
+            ViewBag.selectCategories = GetEnumSelectList<Category>();
+            ViewBag.selectGovernorate = GetEnumSelectList<Governorate>();
             return View();
         }
+        public static List<SelectListItem> GetEnumSelectList<T>()
+        {
+            var enumValues = Enum.GetValues(typeof(T)).Cast<T>().ToList();
+            var selectList = enumValues.Select((e, i) => new SelectListItem
+            {
+                Value = i.ToString(),
+                Text = e.ToString()
+            }).ToList();
 
+            return selectList;
+        }
         public IActionResult Privacy()
         {
             return View();
