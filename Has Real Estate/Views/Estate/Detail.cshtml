@@ -55,13 +55,22 @@
                 {
                         <div class="spanfor"><i class="bi bi-dot"></i>For Rent</div>
                 }
-                    <div class="btnheart " >
-                        <a asp-action="Save" asp-route-estateId="@Model.Id" >
-                            <i  class="  far fa-heart fs-4"></i>
-                        </a> 
-                        <div class=""style="margin-left:1rem">@TempData["successMessage"]</div>
-                        
-                    </div> 
+
+
+                    @if (ViewBag.savePropertyStatus == null)
+                        {
+                        <a asp-action="Save" asp-controller="Estate" asp-route-estateId="@Model.Id">
+                                <i class="bi bi-heart"></i>
+                            </a>
+                        }
+                        else
+                        {
+                        <a asp-action="Save" asp-controller="Estate" asp-route-estateId="@Model.Id">
+                                <i class="bi bi-heart-fill"></i>
+                            </a>
+                        }
+                    
+                
                     
                 </div>
                 <div class="d-flex mb-2">

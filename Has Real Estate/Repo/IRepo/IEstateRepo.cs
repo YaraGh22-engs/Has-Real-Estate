@@ -16,5 +16,6 @@ namespace Has_Real_Estate.Repo.IRepo
         IEnumerable<Estate> SearchByName(string searchName);
         Task SaveProperty(int estateId);
         IEnumerable<SavedProperty> GetSavedProperty();
+        SavedProperty CheckSaveStatus(int estateId, string userId);
     }
 }

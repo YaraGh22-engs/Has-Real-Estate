@@ -194,10 +194,12 @@ namespace Has_Real_Estate.Controllers
         
         public async Task<IActionResult> Detail(int estateId) 
         {
-            var es =await _context.Estates.Include(h => h.EstateImages)
-                                           
+            var userId = _userService.GetUserId();
+            var es =await _context.Estates.Include(h => h.EstateImages) 
                                            .Where(h => h.Id == estateId)
-                                           .SingleOrDefaultAsync(); 
+                                           .SingleOrDefaultAsync();
+
+            ViewBag.savePropertyStatus = _estateRepo.CheckSaveStatus(estateId, userId);
             return View(es);
         }
         [Authorize]
@@ -209,6 +211,7 @@ namespace Has_Real_Estate.Controllers
                                          .SingleOrDefaultAsync();
             if (isSaved == null)
             {
+                ViewBag.savePropertyStatus = true;
                 SavedProperty SP = new SavedProperty
                 {
                     UserId = userId,
@@ -216,12 +219,14 @@ namespace Has_Real_Estate.Controllers
                 };
                 await _context.SavedProperties.AddAsync(SP);
                 await _context.SaveChangesAsync();
+               
                 TempData["successMessage"] = "Saved";
             }
             else
             {
                 _context.SavedProperties.Remove(isSaved);
                 _context.SaveChanges();
+               
                 TempData["successMessage"] = "Removed";
             }
             return RedirectToAction("Detail", "Estate", new { estateId = estateId });
@@ -230,6 +235,7 @@ namespace Has_Real_Estate.Controllers
         public IActionResult GetSavedProperty()
         {
             var es = _estateRepo.GetSavedProperty();
+            
             return View(es); 
         }
     

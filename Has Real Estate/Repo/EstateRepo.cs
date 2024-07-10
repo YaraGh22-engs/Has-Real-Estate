@@ -227,13 +227,23 @@ namespace Has_Real_Estate.Repo
         {
             throw new NotImplementedException();
         }
-
+        public SavedProperty CheckSaveStatus(int estateId, string userId)
+        {
+            var result = _context.SavedProperties?
+                .Where(se => se.UserId == userId && se.EstateId == estateId)
+                .FirstOrDefault();
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
+        }
 
         public IEnumerable<SavedProperty> GetSavedProperty()
         {
             var userId = _userService.GetUserId();
 
-            var sp = _context.SavedProperties.Include(x=>x.Estate)
+            var sp = _context.SavedProperties.Include(x=>x.Estate).ThenInclude(x=>x.EstateImages)
                . Where(x => x.UserId == userId)
                                     .ToList();
 
