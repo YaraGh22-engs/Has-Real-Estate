@@ -35,7 +35,8 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddScoped<IEstateRepo, EstateRepo>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IUserService, UserService>();  
-builder.Services.AddScoped<IAdminOperationsRepo, AdminOperationsRepo>();  
+builder.Services.AddScoped<IAdminOperationsRepo, AdminOperationsRepo>();
+builder.Services.AddScoped<ICommentRepo, CommentRepo>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 

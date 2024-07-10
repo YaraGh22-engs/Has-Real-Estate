@@ -55,8 +55,9 @@ namespace Has_Real_Estate.Models
  
         //navigation
         public List<EstateImages>? EstateImages { get; set; } = new List<EstateImages>(); 
-        public List<SavedProperty>? SavedProperties { get; set; } = new List<SavedProperty>(); 
- 
+        public List<SavedProperty>? SavedProperties { get; set; } = new List<SavedProperty>();
+        public List<Comment>? Comments { get; set; } = new List<Comment> ();
+
 
     }
     public enum Category

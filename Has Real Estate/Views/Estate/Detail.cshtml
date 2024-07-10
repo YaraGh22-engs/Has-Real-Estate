@@ -57,20 +57,20 @@
                 }
 
 
-                    @if (ViewBag.savePropertyStatus == null)
-                        {
+                @if (ViewBag.savePropertyStatus == null)
+                {
                         <a asp-action="Save" asp-controller="Estate" asp-route-estateId="@Model.Id">
                                 <i class="bi bi-heart"></i>
                             </a>
-                        }
-                        else
-                        {
+                }
+                else
+                {
                         <a asp-action="Save" asp-controller="Estate" asp-route-estateId="@Model.Id">
                                 <i class="bi bi-heart-fill"></i>
                             </a>
-                        }
+                }
                     
-                
+                   
                     
                 </div>
                 <div class="d-flex mb-2">
@@ -183,52 +183,247 @@
 
         </div>
     </div>
+
+    <!-- comments area --> 
+    <div class="container">
+        <div class="row mt-4">
+            <!-- add comment -->
+            <div class="col-md-6 col-sm-12"> 
+                <form asp-controller="User" asp-action="AddComment" method="post">
+                    <textarea id="inputField" class="form-control" aria-label="With textarea" name="Content" style="border:none ;width: 50%; vertical-align:top;" placeholder="add comment"></textarea>
+                    <input type="hidden" name="UserId" class="form-control" value="@UserManager.GetUserId(User)" />
+                    <input type="hidden" name="EstateId" class="form-control" value="@Model.Id" />
+                    <button id="submitButton" type="submit" class="btn btn-success btn-sm" style="display: inline-block; margin-top:10px;">Comment</button>
+                </form>
+            </div>
+            <!-- end of add comment -->
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- view comment -->
+        <div class="row mt-4">
+            <div class="col-md-6 col-sm-12"> 
+                <h4>Comments</h4>
+                @if (Model != null && Model.Comments != null && Model.Comments.Any())
+                {
+                    @foreach (var comment in Model.Comments)
+                    {
+                        var user = await UserManager.FindByIdAsync(comment.UserId);
+                        <input id="commentId" hidden value="@comment.Id" />
+                        <div id="comment-@(comment.Id)"  class="overflow-hidden d-flex mt-4 " style="gap:10px; width: 100%;">
+                            <div  style="width: 50px;height: 50px;border-radius: 50%;overflow: hidden;border: 3px solid white;flex-shrink: 0;">
+                                @if (user.ProfilePicture != null)
+                                {
+                                    <img src="data:image/*;base64,@(Convert.ToBase64String(user.ProfilePicture))" style="height:100%; width: 100%;" alt="profile">
+                                }
+                                else
+                                {
+                                    <img src="~/assets/cover.png" style="height:100%; width: 100%;" alt="profile">
+                                }
+                            </div>
+                            <div class="w-50 d-flex currentDiv" style="gap:40px">
+                                <p class="mt-1" style="word-break: break-all;">
+                                    <strong>@user.FName -</strong>
+                                    <span class="text-muted">@comment.CreatedDate.ToString("MMMM") @comment.CreatedDate.Year</span>
+                                    <br />
+                                    @comment.Content
+                                </p>
+                                <!--  delete button -->
+                                @if (UserManager.GetUserAsync(User)?.Result?.Id == comment.UserId)
+                                {
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton@(comment.Id)" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-xs dropdown-menu-end" aria-labelledby="dropdownMenuButton@(comment.Id)">
+                                            <li><a class="dropdown-item js-delete" data-id="@comment.Id " >Delete</a></li>
+                                        </ul>
+                                    </div>
+                                }
+                                <!-- end of delete button -->
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No comments available.</p>
+                }
+            </div>
+        </div>
+    </div>
+    <!--End view comments-->
+    <!--End comments area -->
 </div>
 
 
-
-<script type='text/javascript'>
-    function GetMap() {
-
-
-        ///////////////Converting the C# Model to JS model
-        // convsert the data base table to Array in json type
-        var home = @Html.Raw(Json.Serialize(Model));
+@section Scripts 
+{
+    <!--Map script-->
+    <script type='text/javascript'>
+        function GetMap() {
 
 
-        //You can customize the map as you load it.
-        // Use the following code to update how the map is loaded in the GetMap function such that it sets the type to aerial,
-        // the zoom level to 10, and the map center over London, UK (51.50632, -0.12714).
-        var map = new Microsoft.Maps.Map('#myMap', {
-            credentials: 'ArTYnXAo5ajG1e4ZyFIV-LT3sW_IU0Uy2YETN7N-u5EdkJOaOwaft6BOA1SPlVfA',
-            center: new Microsoft.Maps.Location(home.longitude, home.latitude),
-            mapTypeId: Microsoft.Maps.MapTypeId.aerial,
-            zoom: 10
+            ///////////////Converting the C# Model to JS model
+            // convsert the data base table to Array in json type
+            var home = @Html.Raw(Json.Serialize(Model));
+
+
+            //You can customize the map as you load it.
+            // Use the following code to update how the map is loaded in the GetMap function such that it sets the type to aerial,
+            // the zoom level to 10, and the map center over London, UK (51.50632, -0.12714).
+            var map = new Microsoft.Maps.Map('#myMap', {
+                credentials: 'ArTYnXAo5ajG1e4ZyFIV-LT3sW_IU0Uy2YETN7N-u5EdkJOaOwaft6BOA1SPlVfA',
+                center: new Microsoft.Maps.Location(home.longitude, home.latitude),
+                mapTypeId: Microsoft.Maps.MapTypeId.aerial,
+                zoom: 10
+            });
+
+            var location = new Microsoft.Maps.Location(home.longitude, home.latitude);
+            var pin = new Microsoft.Maps.Pushpin(location, {
+                color: 'green',
+                title: home.name,
+            });
+            map.entities.push(pin);
+
+            //////////////////Pushpins, sometimes known as MapIcons or Markers,
+            // are the primary method in the Bing Maps V8 Map Control to add a graphical image and text at a location within the map.
+            //Create custom Pushpin
+            // هنا يمكننا وضع الاحداثيات بدل سينتر لتثبيت ماركر
+
+            var myloc = new Microsoft.Maps.Location(35.340192118895025, 35.93475407561252);
+            var pin = new Microsoft.Maps.Pushpin(myloc, {
+                color: 'red',
+                title: 'Jableh',
+                subTitle: 'City Center',
+
+            });
+            map.entities.push(pin);
+        } // end of Getmap()
+    </script>
+
+
+    <!--Comment-->
+    <script>
+        window.onload = function () {
+            const inputField = document.getElementById("inputField");
+            const submitButton = document.getElementById("submitButton");
+
+            // Disable the button initially
+            submitButton.disabled = true;
+
+            // Enable the button when the input field has a value
+            inputField.addEventListener("input", function () {
+                submitButton.disabled = inputField.value.trim() === "";
+            });
+        };
+    </script>
+
+
+
+   
+    <!--Delete comment-->
+    <script>
+        $(document).ready(function () 
+        {
+            $('.js-delete').on('click', function () 
+            {
+                var btn = $(this);
+
+                const swal = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-danger mx-2',
+                        cancelButton: 'btn btn-light'
+                    },
+                    buttonsStyling: false
+                });
+
+                swal.fire({
+                    title: 'Are you sure that you need to delete this Comment?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: `/User/RemoveComment/${btn.data('id')}`,
+                            method: 'DELETE',
+                            success: function () {
+                                swal.fire(
+                                    'Deleted!',
+                                    'Comment has been deleted.',
+                                    'success'
+                                );
+                                // $("#div1").fadeOut();
+                                $(`#comment-${commentId}`).remove();
+                                console.log("Hello world!");
+                            },
+                            error: function () {
+                                swal.fire(
+                                    'Oooops...',
+                                    'Something went wrong.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            });
         });
-       
-        var location = new Microsoft.Maps.Location(home.longitude, home.latitude);
-        var pin = new Microsoft.Maps.Pushpin(location, {
-            color: 'green',
-            title: home.name,
+    </script>
+
+    <script>
+        
+        function deleteComment(commentId)
+        var btn = $('.js-delete');
+
+        const swal = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-danger mx-2',
+                cancelButton: 'btn btn-light'
+            },
+            buttonsStyling: false
         });
-        map.entities.push(pin);
 
-        //////////////////Pushpins, sometimes known as MapIcons or Markers,
-        // are the primary method in the Bing Maps V8 Map Control to add a graphical image and text at a location within the map.
-        //Create custom Pushpin
-        // هنا يمكننا وضع الاحداثيات بدل سينتر لتثبيت ماركر
+        swal.fire({
+            title: 'Are you sure that you need to delete this Comment?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed)   
+            {
+            $.ajax({
+                type: "POST",
+                url: "/User/RemoveComment",
+                data: { commentId: commentId },
+                    success: function () 
+                    {
+                        swal.fire(
+                            'Deleted!',
+                            'Comment has been deleted.',
+                            'success'
+                        );
+                        $(`#comment-${commentId}`).remove();
+                    },
+                    error: function () {
+                        swal.fire(
+                            'Oooops...',
+                            'Something went wrong.',
+                            'error'
+                        );
+                    }
+                }
+            });
+        }
+    </script>
+}
 
-        var myloc = new Microsoft.Maps.Location(35.340192118895025, 35.93475407561252);
-        var pin = new Microsoft.Maps.Pushpin(myloc, {
-            color: 'red',
-            title: 'Jableh',
-            subTitle: 'City Center',
 
-        }); 
-        map.entities.push(pin); 
-    } // end of Getmap() 
-</script>
-<script>
-    
-     
-</script>

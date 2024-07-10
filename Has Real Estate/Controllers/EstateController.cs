@@ -196,6 +196,7 @@ namespace Has_Real_Estate.Controllers
         {
             var userId = _userService.GetUserId();
             var es =await _context.Estates.Include(h => h.EstateImages) 
+                                           .Include(h=>h.Comments)
                                            .Where(h => h.Id == estateId)
                                            .SingleOrDefaultAsync();
 
@@ -218,16 +219,12 @@ namespace Has_Real_Estate.Controllers
                     EstateId = estateId, 
                 };
                 await _context.SavedProperties.AddAsync(SP);
-                await _context.SaveChangesAsync();
-               
-                TempData["successMessage"] = "Saved";
+                await _context.SaveChangesAsync(); 
             }
             else
             {
                 _context.SavedProperties.Remove(isSaved);
-                _context.SaveChanges();
-               
-                TempData["successMessage"] = "Removed";
+                _context.SaveChanges(); 
             }
             return RedirectToAction("Detail", "Estate", new { estateId = estateId });
         }
