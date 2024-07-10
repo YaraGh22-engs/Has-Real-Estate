@@ -59,6 +59,16 @@ namespace Has_Real_Estate.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            // added by me
+            [Display(Name = "Profilr Picture")]
+            public byte[]? ProfilePicture { get; set; }
+            [Required]
+            [Display(Name = "First Name")]
+            public string FName { get; set; }
+            [Required]
+            [Display(Name = "Last Name")]
+            public string LName { get; set; }
+            //end added by me
         }
 
         private async Task LoadAsync(AppUser user)
@@ -70,7 +80,12 @@ namespace Has_Real_Estate.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber, 
+                //added by me
+                ProfilePicture = user.ProfilePicture,
+                FName = user.FName,
+                LName = user.LName,
+                // end added by me
             };
         }
 
@@ -110,7 +125,30 @@ namespace Has_Real_Estate.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
-
+            //added by me
+            if (Request.Form.Files.Count > 0)
+            {
+                var file = Request.Form.Files.FirstOrDefault();
+                using (var dataStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(dataStream);
+                    user.ProfilePicture = dataStream.ToArray();
+                }
+                await _userManager.UpdateAsync(user);
+            }
+            var Fname = user.FName;
+            if (Input.FName != Fname)
+            {
+                user.FName = Input.FName;
+                await _userManager.UpdateAsync(user);
+            }
+            var Lname = user.LName;
+            if (Input.LName != Lname)
+            {
+                user.LName = Input.LName;
+                await _userManager.UpdateAsync(user);
+            }
+            //end added by me
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
