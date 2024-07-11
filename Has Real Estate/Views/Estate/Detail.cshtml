@@ -211,7 +211,7 @@
                     {
                         var user = await UserManager.FindByIdAsync(comment.UserId);
                         <input id="commentId" hidden value="@comment.Id" />
-                        <div id="comment-@(comment.Id)"  class="overflow-hidden d-flex mt-4 " style="gap:10px; width: 100%;">
+                        <div id="comment-@(comment.Id)"  class="overflow-hidden d-flex mt-4  yy" style="gap:10px; width: 100%;">
                             <div  style="width: 50px;height: 50px;border-radius: 50%;overflow: hidden;border: 3px solid white;flex-shrink: 0;">
                                 @if (user.ProfilePicture != null)
                                 {
@@ -358,8 +358,10 @@
                                     'Comment has been deleted.',
                                     'success'
                                 );
-                                // $("#div1").fadeOut();
-                                $(`#comment-${commentId}`).remove();
+                                // // $("#div1").fadeOut();
+                                // $(`#comment-${commentId}`).remove();
+                                // btn.parents('div').fadeOut();
+                                $(this).parents('div').closest('.yy').fadeOut();
                                 console.log("Hello world!");
                             },
                             error: function () {
