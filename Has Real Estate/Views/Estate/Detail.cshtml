@@ -185,20 +185,7 @@
     </div>
 
     <!-- comments area --> 
-    <div class="container">
-        <div class="row mt-4">
-            <!-- add comment -->
-            <div class="col-md-6 col-sm-12"> 
-                <form asp-controller="User" asp-action="AddComment" method="post">
-                    <textarea id="inputField" class="form-control" aria-label="With textarea" name="Content" style="border:none ;width: 50%; vertical-align:top;" placeholder="add comment"></textarea>
-                    <input type="hidden" name="UserId" class="form-control" value="@UserManager.GetUserId(User)" />
-                    <input type="hidden" name="EstateId" class="form-control" value="@Model.Id" />
-                    <button id="submitButton" type="submit" class="btn btn-success btn-sm" style="display: inline-block; margin-top:10px;">Comment</button>
-                </form>
-            </div>
-            <!-- end of add comment -->
-        </div>
-    </div>
+   
 
     <div class="container">
         <!-- view comment -->
@@ -254,6 +241,36 @@
         </div>
     </div>
     <!--End view comments-->
+    <div class="container">
+        <div class="row mt-4">
+            <!-- add comment -->
+            <div class="col-md-6 col-sm-12">
+                <form asp-controller="User" asp-action="AddComment" method="post">
+                    <textarea id="inputField" class="form-control" aria-label="With textarea" name="Content" style="border:none ;width: 50%; vertical-align:top;" placeholder="write a comment"></textarea>
+                    <input type="hidden" name="UserId" class="form-control" value="@UserManager.GetUserId(User)" />
+                    <input type="hidden" name="EstateId" class="form-control" value="@Model.Id" /> 
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <button id="submitButton" type="submit" class="btn btn-success btn-sm" style="display: inline-block; margin-top:10px;">Send Comment</button>
+
+                    }
+                    else
+                    {
+                       <div>
+                            <p class="  ">LogIn to Comment </p>  
+                       </div>
+                        <div>
+                            
+                            <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                       </div>
+                        
+
+                    }
+                </form>
+            </div> 
+            <!-- end of add comment -->
+        </div>
+    </div>
     <!--End comments area -->
 </div>
 

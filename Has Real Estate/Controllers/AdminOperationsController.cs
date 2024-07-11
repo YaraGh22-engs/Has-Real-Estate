@@ -4,7 +4,8 @@ using System.Data;
 
 namespace Has_Real_Estate.Controllers
 {
-    
+    [Authorize(Roles=ClsRoles.roleAdmin)]
+
     public class AdminOperationsController : Controller
     {
         private readonly IAdminOperationsRepo _adminrepo;

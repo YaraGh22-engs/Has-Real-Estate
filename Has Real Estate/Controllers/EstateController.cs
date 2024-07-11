@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Has_Real_Estate.Controllers
 {
+    [Authorize]
     public class EstateController : Controller
     {
         private readonly IEstateRepo _estateRepo;
@@ -33,11 +34,12 @@ namespace Has_Real_Estate.Controllers
 
             return selectList;
         }
-        [Authorize]
+         
         public IActionResult Index()
         {
             return View(_estateRepo.GetEstatesByUserId());
         }
+        [AllowAnonymous]
         public IActionResult Explore(string? forSale, string? forRent, string? searchName, [FromQuery] Category? categoryName,
                                              [FromQuery] Governorate? governorate, int? minPrice, int? maxPrice)
         {
@@ -78,7 +80,7 @@ namespace Has_Real_Estate.Controllers
             ViewBag.forRent = forRent;
             return View(estates);
         }
-        [Authorize]
+      
         public IActionResult Create()
         {
             var viewModel = new CreateEstateVM()
@@ -191,7 +193,7 @@ namespace Has_Real_Estate.Controllers
 
             return isDeleted ? Ok() : BadRequest();
         }
-        
+        [AllowAnonymous]
         public async Task<IActionResult> Detail(int estateId) 
         {
             var userId = _userService.GetUserId();
@@ -203,7 +205,7 @@ namespace Has_Real_Estate.Controllers
             ViewBag.savePropertyStatus = _estateRepo.CheckSaveStatus(estateId, userId);
             return View(es);
         }
-        [Authorize]
+       
         public async Task<IActionResult> Save(int estateId)
         {
             var userId = _userService.GetUserId();
