@@ -44,15 +44,15 @@ namespace Has_Real_Estate.Controllers
             return RedirectToAction("Detail", "Estate", new { estateId = comment.EstateId });
         }
 
-        public IActionResult RemoveComment(int id )
+        public IActionResult RemoveComment(int commentId )
         {
-            var com = _commentRepo.GetById(id);
+            var com = _commentRepo.GetById(commentId);
             if (com == null)
             {
                 return BadRequest();
             }
             var estateId = com.EstateId;
-            var isDelete = _commentRepo.RemoveComment(id);
+            var isDelete = _commentRepo.RemoveComment(commentId);
             if (isDelete > 0)
             {
                 //return Ok();

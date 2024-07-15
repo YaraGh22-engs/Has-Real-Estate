@@ -190,7 +190,7 @@
     <div class="container">
         <!-- view comment -->
         <div class="row mt-4">
-            <div class="col-md-6 col-sm-12"> 
+            <div  class="col-md-6 col-sm-12"> 
                 <h4>Comments</h4>
                 @if (Model != null && Model.Comments != null && Model.Comments.Any())
                 {
@@ -198,7 +198,7 @@
                     {
                         var user = await UserManager.FindByIdAsync(comment.UserId);
                         <input id="commentId" hidden value="@comment.Id" />
-                        <div id="comment-@(comment.Id)"  class="overflow-hidden d-flex mt-4  yy" style="gap:10px; width: 100%;">
+                        <div id="comment-@(comment.Id)"  class="overflow-hidden d-flex mt-4  " style="gap:10px; width: 100%;">
                             <div  style="width: 50px;height: 50px;border-radius: 50%;overflow: hidden;border: 3px solid white;flex-shrink: 0;">
                                 @if (user.ProfilePicture != null)
                                 {
@@ -216,7 +216,7 @@
                                     <br />
                                     @comment.Content
                                 </p>
-                                <!--  delete button -->
+                                <!--  delete button --> 
                                 @if (UserManager.GetUserAsync(User)?.Result?.Id == comment.UserId)
                                 {
                                     <div class="dropdown">
@@ -224,10 +224,10 @@
                                             <i class="fas fa-ellipsis-v"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-xs dropdown-menu-end" aria-labelledby="dropdownMenuButton@(comment.Id)">
-                                            <li><a class="dropdown-item js-delete" data-id="@comment.Id " >Delete</a></li>
+                                            <li><a class="dropdown-item" onclick="deleteComment('@comment.Id')">Delete</a></li>
                                         </ul>
                                     </div>
-                                }
+                                } 
                                 <!-- end of delete button -->
                             </div>
                         </div>
@@ -341,7 +341,8 @@
 
    
     <!--Delete comment-->
-    <script src="~/js/deletecomment.js"></script>
+    <script src="~/js/delete-comment.js"></script>
+ 
      
 }
 

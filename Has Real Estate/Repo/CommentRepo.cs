@@ -29,9 +29,9 @@ namespace Has_Real_Estate.Repo
             return comment;
         }
 
-        public int RemoveComment(int id)
+        public int RemoveComment(int commentId)
         {
-            var comment = GetById(id);
+            var comment = GetById(commentId);
             if (comment == null)
             {
                 return 0;
